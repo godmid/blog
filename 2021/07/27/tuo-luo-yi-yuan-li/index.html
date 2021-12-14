@@ -431,12 +431,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%94%B5%E5%AD%90/">
+                                <span class="chip bg-color">电子</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E7%94%B5%E5%AD%90/" class="post-category">
+                                电子
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -452,7 +465,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2021-08-20
+                    2021-12-14
                 </div>
                 
 
@@ -495,36 +508,36 @@
 <span id="more"></span>
 
 <p>本帖翻译自 <a target="_blank" rel="noopener" href="http://www.starlino.com/imu_guide.html">IMU（加速度计和陀螺仪设备）在嵌入式应用中使用的指南。</a><br>这篇文章主要介绍加速度计和陀螺仪的数学模型和基本算法，以及如何融合这两者，侧重算法、思想的讨论</p>
-<p>介绍<br>本指南旨在向兴趣者介绍惯性MEMS（微机电系统）传感器，特别是加速度计和陀螺仪以及其他整合IMU（ <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Inertial_measurement_unit">惯性测量单元</a>）设备。<br><img src="http://image.geek-workshop.com/forum/201208/22/163854b9769h9p7kvq7omh.jpg" alt="1.jpg"></p>
+<p>介绍<br>本指南旨在向兴趣者介绍惯性MEMS（微机电系统）传感器，特别是加速度计和陀螺仪以及其他整合IMU（ <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Inertial_measurement_unit">惯性测量单元</a>）设备。<br><img src="http://image.geek-workshop.com/forum/201208/22/163854b9769h9p7kvq7omh.jpg"></p>
 <p>2012-8-22 16:38 上传</p>
 <p><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhuanghe_xing/article/details/forum.php?mod=attachment&amp;aid=NjQxM3xhNDgxYjAxZnwxMzQ2NTg2MjYwfDMxOTV8MTY5NQ==&amp;nothumb=yes"><strong>下载附件</strong>(16.48 KB)</a></p>
 <p>IMU单元例子：上图中MCU顶端的 <a target="_blank" rel="noopener" href="http://www.starlino.com/store/acc-gyro">ACC Gyro 6DOF</a>，名为 <a target="_blank" rel="noopener" href="http://www.gadgetgangster.com/find-a-project/56?projectnum=240">USBThumb</a>，支持USB/串口通信</p>
-<p>在这篇文章中我将概括这么几个基本并且重要的话题：<br>- 加速度计（accelerometer）检测什么<br>- 陀螺仪（gyroscope，也称作 gyro）检测什么<br>- 如何将传感器ADC读取的数据转换为物理单位（加速度传感器的单位是g，陀螺仪的单位是 度/秒）<br>- 如何结合加速度传感器和陀螺仪的数据以得到设备和地平面之间的倾角的准确信息<br>在整篇文章中我尽量将数学运算降低到最少。如果你知道什么是正弦、余弦、正切函数，那无论你的项目使用哪种平台你应该都会明白和运用这篇文章中的思想，这些平台如Arduino、Propeller、Basic Stamp、Ateml芯片、PIC芯片等等。总有些人认为使用IMU单元需要复杂的数学运算（复杂的FIR或IIR滤波，如卡尔曼滤波，Parks-McClellan滤波等）。你如果研究这些会得到很棒且很复杂的结果。我解释事情的方式，只需要基本的数学。我非常坚信简单的原则。我认为一个简单的系统更容易操作和监控，另外许多嵌入式设备并不具备能力和资源去实现需要进行矩阵运算的复杂算法。<br>我会用我设计的一个新IMU模块—— <a target="_blank" rel="noopener" href="http://www.starlino.com/store/acc-gyro">Acc_Gyro Accelerometer + Gyro IMU</a>作为例子。在下面的例子中我们会使用这个设备的参数。用这个模块作为介绍非常合适，因为它由3个设备组成：<br>- LIS331AL ( <a target="_blank" rel="noopener" href="http://www.starlino.com/wp-content/uploads/data/acc_gyro/LIS331AL.pdf">datasheet</a>) – 3轴 2G 模拟加速度计<br>- LPR550AL ( <a target="_blank" rel="noopener" href="http://www.starlino.com/wp-content/uploads/data/acc_gyro/LPR550AL.pdf">datasheet</a>) – 双轴（俯仰、翻滚） 500°/s 加速度传感器<br>- LY550ALH ( <a target="_blank" rel="noopener" href="http://www.starlino.com/wp-content/uploads/data/acc_gyro/LY550ALH.pdf">datasheet</a>) –单轴（偏航）陀螺仪 最后这个设备在这篇介绍中不使用，不过他在 <a target="_blank" rel="noopener" href="http://www.starlino.com/dcm_tutorial.html">DCM Matrix implementation</a>中有重要作用<br>它们一起组成了一个6自由度的惯性测量单元。这是个花哨的名字！然而，在花哨的名字后面是个非常有用的设备组合，接下来我们会详细介绍之。<br>第一部分 加速度计<br>要了解这个模块我们先从加速度计开始。当我们在想象一个加速度计的时候我们可以把它想作一个圆球在一个方盒子中。你可能会把它想作一个饼干或者甜圈，但我就把它当做一个球好了：<br><img src="http://image.geek-workshop.com/forum/201208/22/163855d7e99tne77u81b12.png" alt="2.png"></p>
+<p>在这篇文章中我将概括这么几个基本并且重要的话题：<br>- 加速度计（accelerometer）检测什么<br>- 陀螺仪（gyroscope，也称作 gyro）检测什么<br>- 如何将传感器ADC读取的数据转换为物理单位（加速度传感器的单位是g，陀螺仪的单位是 度/秒）<br>- 如何结合加速度传感器和陀螺仪的数据以得到设备和地平面之间的倾角的准确信息<br>在整篇文章中我尽量将数学运算降低到最少。如果你知道什么是正弦、余弦、正切函数，那无论你的项目使用哪种平台你应该都会明白和运用这篇文章中的思想，这些平台如Arduino、Propeller、Basic Stamp、Ateml芯片、PIC芯片等等。总有些人认为使用IMU单元需要复杂的数学运算（复杂的FIR或IIR滤波，如卡尔曼滤波，Parks-McClellan滤波等）。你如果研究这些会得到很棒且很复杂的结果。我解释事情的方式，只需要基本的数学。我非常坚信简单的原则。我认为一个简单的系统更容易操作和监控，另外许多嵌入式设备并不具备能力和资源去实现需要进行矩阵运算的复杂算法。<br>我会用我设计的一个新IMU模块—— <a target="_blank" rel="noopener" href="http://www.starlino.com/store/acc-gyro">Acc_Gyro Accelerometer + Gyro IMU</a>作为例子。在下面的例子中我们会使用这个设备的参数。用这个模块作为介绍非常合适，因为它由3个设备组成：<br>- LIS331AL ( <a target="_blank" rel="noopener" href="http://www.starlino.com/wp-content/uploads/data/acc_gyro/LIS331AL.pdf">datasheet</a>) – 3轴 2G 模拟加速度计<br>- LPR550AL ( <a target="_blank" rel="noopener" href="http://www.starlino.com/wp-content/uploads/data/acc_gyro/LPR550AL.pdf">datasheet</a>) – 双轴（俯仰、翻滚） 500°/s 加速度传感器<br>- LY550ALH ( <a target="_blank" rel="noopener" href="http://www.starlino.com/wp-content/uploads/data/acc_gyro/LY550ALH.pdf">datasheet</a>) –单轴（偏航）陀螺仪 最后这个设备在这篇介绍中不使用，不过他在 <a target="_blank" rel="noopener" href="http://www.starlino.com/dcm_tutorial.html">DCM Matrix implementation</a>中有重要作用<br>它们一起组成了一个6自由度的惯性测量单元。这是个花哨的名字！然而，在花哨的名字后面是个非常有用的设备组合，接下来我们会详细介绍之。<br>第一部分 加速度计<br>要了解这个模块我们先从加速度计开始。当我们在想象一个加速度计的时候我们可以把它想作一个圆球在一个方盒子中。你可能会把它想作一个饼干或者甜圈，但我就把它当做一个球好了：<br><img src="http://image.geek-workshop.com/forum/201208/22/163855d7e99tne77u81b12.png"></p>
 <p>2012-8-22 16:38 上传</p>
 <p><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhuanghe_xing/article/details/forum.php?mod=attachment&amp;aid=NjQxNHw0ZDkxOTU3NXwxMzQ2NTg2MjYwfDMxOTV8MTY5NQ==&amp;nothumb=yes"><strong>下载附件</strong>(15.85 KB)</a></p>
-<p>我们假定这个盒子不在重力场中或者其他任何会影响球的位置的场中，球处于盒子的正中央。你可以想象盒子在外太空中，远离任何天体，如果很难想象，那就当做盒子在航天飞机中，一切东西都处于无重力状态。在上面的图中你可以看到我们给每个轴分配了一对墙（我们移除了Y+以此来观察里面的情况）。设想每面墙都能感测压力。如果我们突然把盒子向左移动（加速度为1g=9.8m/s^2），那么球会撞上X-墙。然后我们检测球撞击墙面产生的压力，X轴输出值为-1g。<br><img src="http://image.geek-workshop.com/forum/201208/22/163856r6orns2rocpzz5sp.png" alt="3.png"></p>
+<p>我们假定这个盒子不在重力场中或者其他任何会影响球的位置的场中，球处于盒子的正中央。你可以想象盒子在外太空中，远离任何天体，如果很难想象，那就当做盒子在航天飞机中，一切东西都处于无重力状态。在上面的图中你可以看到我们给每个轴分配了一对墙（我们移除了Y+以此来观察里面的情况）。设想每面墙都能感测压力。如果我们突然把盒子向左移动（加速度为1g=9.8m/s^2），那么球会撞上X-墙。然后我们检测球撞击墙面产生的压力，X轴输出值为-1g。<br><img src="http://image.geek-workshop.com/forum/201208/22/163856r6orns2rocpzz5sp.png"></p>
 <p>2012-8-22 16:38 上传</p>
 <p><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhuanghe_xing/article/details/forum.php?mod=attachment&amp;aid=NjQxNXwxM2U2NjRkZXwxMzQ2NTg2MjYwfDMxOTV8MTY5NQ==&amp;nothumb=yes"><strong>下载附件</strong>(19.23 KB)</a></p>
-<p>请注意加速度计检测到得力的方向与它本身加速度的方向是相反的。这种力量通常被称为 <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Fictitious_force">惯性力或假想力</a> 。在这个模型中你你应该学到加速度计是通过间接测量力对一个墙面的作用来测量加速度的，在实际应用中，可能通过弹簧等装置来测量力。这个力可以是加速度引起的，但在下面的例子中，我们会发现它不一定是加速度引起的。<br>如果我们把模型放在地球上，球会落在Z-墙面上并对其施加一个1g的力，见下图：<br><img src="http://image.geek-workshop.com/forum/201208/22/163856lxjiqd8xlvzh775b.png" alt="4.png"></p>
+<p>请注意加速度计检测到得力的方向与它本身加速度的方向是相反的。这种力量通常被称为 <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Fictitious_force">惯性力或假想力</a> 。在这个模型中你你应该学到加速度计是通过间接测量力对一个墙面的作用来测量加速度的，在实际应用中，可能通过弹簧等装置来测量力。这个力可以是加速度引起的，但在下面的例子中，我们会发现它不一定是加速度引起的。<br>如果我们把模型放在地球上，球会落在Z-墙面上并对其施加一个1g的力，见下图：<br><img src="http://image.geek-workshop.com/forum/201208/22/163856lxjiqd8xlvzh775b.png"></p>
 <p>2012-8-22 16:38 上传</p>
 <p><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhuanghe_xing/article/details/forum.php?mod=attachment&amp;aid=NjQxNnxjNGIzNDM1YnwxMzQ2NTg2MjYwfDMxOTV8MTY5NQ==&amp;nothumb=yes"><strong>下载附件</strong>(19.54 KB)</a></p>
-<p>在这种情况下盒子没有移动但我们任然读取到Z轴有-1g的值。球在墙壁上施加的压力是由引力造成的。在理论上，它可以是不同类型的力量 - 例如，你可以想象我们的球是铁质的，将一个磁铁放在盒子旁边那球就会撞上另一面墙。引用这个例子只是为了说明加速度计的本质是检测力而非加速度。只是加速度所引起的惯性力正好能被加速度计的检测装置所捕获。<br>虽然这个模型并非一个MEMS传感器的真实构造，但它用来解决与加速度计相关的问题相当有效。实际上有些类似传感器中有金属小球，它们称作倾角开关，但是它们的功能更弱，只能检测设备是否在一定程度内倾斜，却不能得到倾斜的程度。<br>到目前为止，我们已经分析了单轴的加速度计输出，这是使用单轴加速度计所能得到的。三轴加速度计的真正价值在于它们能够检测全部三个轴的惯性力。让我们回到盒子模型，并将盒子向右旋转45度。现在球会与两个面接触：Z-和X-，见下图：<br><img src="http://image.geek-workshop.com/forum/201208/22/163857bferffolflo9ly9l.png" alt="5.png"></p>
+<p>在这种情况下盒子没有移动但我们任然读取到Z轴有-1g的值。球在墙壁上施加的压力是由引力造成的。在理论上，它可以是不同类型的力量 - 例如，你可以想象我们的球是铁质的，将一个磁铁放在盒子旁边那球就会撞上另一面墙。引用这个例子只是为了说明加速度计的本质是检测力而非加速度。只是加速度所引起的惯性力正好能被加速度计的检测装置所捕获。<br>虽然这个模型并非一个MEMS传感器的真实构造，但它用来解决与加速度计相关的问题相当有效。实际上有些类似传感器中有金属小球，它们称作倾角开关，但是它们的功能更弱，只能检测设备是否在一定程度内倾斜，却不能得到倾斜的程度。<br>到目前为止，我们已经分析了单轴的加速度计输出，这是使用单轴加速度计所能得到的。三轴加速度计的真正价值在于它们能够检测全部三个轴的惯性力。让我们回到盒子模型，并将盒子向右旋转45度。现在球会与两个面接触：Z-和X-，见下图：<br><img src="http://image.geek-workshop.com/forum/201208/22/163857bferffolflo9ly9l.png"></p>
 <p>2012-8-22 16:38 上传</p>
 <p><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhuanghe_xing/article/details/forum.php?mod=attachment&amp;aid=NjQxN3w1ZGVjODFhOXwxMzQ2NTg2MjYwfDMxOTV8MTY5NQ==&amp;nothumb=yes"><strong>下载附件</strong>(34.03 KB)</a></p>
-<p>0.71g这个值是不是任意的，它们实际上是1/2的平方根的近似值。我们介绍加速度计的下一个模型时这一点会更清楚。<br>在上一个模型中我们引入了重力并旋转了盒子。在最后的两个例子中我们分析了盒子在两种情况下的输出值，力矢量保持不变。虽然这有助于理解加速度计是怎么和外部力相互作用的，但如果我们将坐标系换为加速度的三个轴并想象矢量力在周围旋转，这会更方便计算。<br><img src="http://image.geek-workshop.com/forum/201208/22/163858sssxmnssijjjczf3.png" alt="6.png"></p>
+<p>0.71g这个值是不是任意的，它们实际上是1/2的平方根的近似值。我们介绍加速度计的下一个模型时这一点会更清楚。<br>在上一个模型中我们引入了重力并旋转了盒子。在最后的两个例子中我们分析了盒子在两种情况下的输出值，力矢量保持不变。虽然这有助于理解加速度计是怎么和外部力相互作用的，但如果我们将坐标系换为加速度的三个轴并想象矢量力在周围旋转，这会更方便计算。<br><img src="http://image.geek-workshop.com/forum/201208/22/163858sssxmnssijjjczf3.png"></p>
 <p>2012-8-22 16:38 上传</p>
 <p><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhuanghe_xing/article/details/forum.php?mod=attachment&amp;aid=NjQxOHxjNDNlNzY5Y3wxMzQ2NTg2MjYwfDMxOTV8MTY5NQ==&amp;nothumb=yes"><strong>下载附件</strong>(7.19 KB)</a></p>
-<p>请看看在上面的模型，我保留了轴的颜色，以便你的思维能更好的从上一个模型转到新的模型中。想象新模型中每个轴都分别垂直于原模型中各自的墙面。矢量R是加速度计所检测的矢量（它可能是重力或上面例子中惯性力的合成）。RX，RY，RZ是矢量R在X，Y，Z上的投影。请注意下列关系：<br>，R ^ 2 = RX ^ 2 + RY ^ 2 + RZ ^ 2（ 公式1）<br>此公式等价于 <a target="_blank" rel="noopener" href="http://demonstrations.wolfram.com/PythagoreanTheorem3D/">三维空间勾股定理</a>。<br>还记得我刚才说的1/2的平方根0.71不是个随机值吧。如果你把它们代回上式，回顾一下重力加速度是1g，那我们就能验证：<br>1 ^ 2 =（SQRT（1/2））^ 2 + 0 ^ 2 +（SQRT（1/2））^ 2<br>在 公式1中简单的取代： R=1, Rx = -SQRT(1/2), Ry = 0 , Rz = -SQRT(1/2)<br>经过一大段的理论序言后，我们和实际的加速度计很靠近了。RX，RY，RZ值是实际中加速度计输出的线性相关值，你可以用它们进行各种计算。<br>在我们运用它之前我们先讨论一点获取加速度计数据的方法。大多数加速度计可归为两类：数字和模拟。数字加速度计可通过I2C，SPI或USART方式获取信息，而模拟加速度计的输出是一个在预定范围内的电压值，你需要用ADC（模拟量转数字量）模块将其转换为数字值。我将不会详细介绍ADC是怎么工作的，部分原因是这是个很广的话题，另一个原因是不同平台的ADC都会有差别。有些MCU具有内置ADC模块，而有些则需要外部电路进行ADC转换。不管使用什么类型的ADC模块，你都会得到一个在一定范围内的数值。例如一个10位ADC模块的输出值范围在0 .. 1023间，请注意，1023 = 2 ^ 10 -1。一个12位ADC模块的输出值范围在0 .. 4095内，注意，4095 = 2 ^ 12-1。<br>我们继续，先考虑下一个简单的例子，假设我们从10位ADC模块得到了以下的三个轴的数据：<br>AdcRx = 586<br>AdcRy = 630<br>AdcRz = 561<br>每个ADC模块都有一个参考电压，假设在我们的例子中，它是3.3V。要将一个10位的ADC值转成电压值，我们使用下列公式：<br>VoltsRx = AdcRx * VREF / 1023<br>小注：8位ADC的最大值是255 = 2 ^ 8 -1，12位ADC最大值是4095 = 2 ^ 12 -1。<br>将3个轴的值代入上式，得到：<br>VoltsRx = 586 * 3.3 / 1023 =～1.89V（结果取两位小数）<br>VoltsRy = 630 * 3.3 / 1023 =～2.03V<br>VoltsRz = 561 * 3.3 / 1023 =～1.81V<br>每个加速度计都有一个零加速度的电压值，你可以在它的说明书中找到，这个电压值对应于加速度为0g。通过计算相对0g电压的偏移量我们可以得到一个有符号的电压值。比方说，0g电压值 VzeroG= 1.65V，通过下面的方式可以得到相对0g电压的偏移量:<br>DeltaVoltsRx = 1.89V - 1.65V = 0.24V<br>DeltaVoltsRy = 2.03V - 1.65V = 0.38V<br>DeltaVoltsRz = 1.81V - 1.65V = 0.16V<br>现在我们得到了加速度计的电压值，但它的单位还不是g（9.8m/s^2），最后的转换，我们还需要引入加速度计的灵敏度（Sensitivity），单位通常是 mV/g。比方说，加速度计的灵敏度 Sensitivity= 478.5mV / g = 0.4785V /g。灵敏度值可以在加速度计说明书中找到。要获得最后的单位为g的加速度，我们使用下列公式计算：<br>RX = DeltaVoltsRx /Sensitivity<br>RX = 0.24V / 0.4785V / G =～0.5g<br>RY = 0.38V / 0.4785V / G =～0.79g<br>RZ = 0.16V / 0.4785V / G =～0.33g<br>当然，我们可以把所有的步骤全部放在一个式子里，但我想通过介绍每一个步骤以便让你了解怎么读取一个ADC值并将其转换为单位为g的矢量力的分量。<br>Rx = (AdcRx * Vref / 1023 – VzeroG) / Sensitivity (公式2)<br>Ry = (AdcRy * Vref / 1023 – VzeroG) / Sensitivity<br>Rz = (AdcRz * Vref / 1023 – VzeroG) / Sensitivity<br>现在我们得到了惯性力矢量的三个分量，如果设备除了重力外不受任何外力影响，那我们就可以认为这个方向就是重力矢量的方向。如果你想计算设备相对于地面的倾角，可以计算这个矢量和Z轴之间的夹角。如果你对每个轴的倾角都感兴趣，你可以把这个结果分为两个分量：X轴、Y轴倾角，这可以通过计算重力矢量和X、Y轴的夹角得到。计算这些角度比你想象的简单，现在我们已经算出了Rx，Ry，Rz的值，让我们回到我们的上一个加速度模型，再加一些标注上去：<br><img src="http://image.geek-workshop.com/forum/201208/22/1638594bjbb147i1lqb7cz.png" alt="7.png"></p>
+<p>请看看在上面的模型，我保留了轴的颜色，以便你的思维能更好的从上一个模型转到新的模型中。想象新模型中每个轴都分别垂直于原模型中各自的墙面。矢量R是加速度计所检测的矢量（它可能是重力或上面例子中惯性力的合成）。RX，RY，RZ是矢量R在X，Y，Z上的投影。请注意下列关系：<br>，R ^ 2 = RX ^ 2 + RY ^ 2 + RZ ^ 2（ 公式1）<br>此公式等价于 <a target="_blank" rel="noopener" href="http://demonstrations.wolfram.com/PythagoreanTheorem3D/">三维空间勾股定理</a>。<br>还记得我刚才说的1/2的平方根0.71不是个随机值吧。如果你把它们代回上式，回顾一下重力加速度是1g，那我们就能验证：<br>1 ^ 2 =（SQRT（1/2））^ 2 + 0 ^ 2 +（SQRT（1/2））^ 2<br>在 公式1中简单的取代： R=1, Rx = -SQRT(1/2), Ry = 0 , Rz = -SQRT(1/2)<br>经过一大段的理论序言后，我们和实际的加速度计很靠近了。RX，RY，RZ值是实际中加速度计输出的线性相关值，你可以用它们进行各种计算。<br>在我们运用它之前我们先讨论一点获取加速度计数据的方法。大多数加速度计可归为两类：数字和模拟。数字加速度计可通过I2C，SPI或USART方式获取信息，而模拟加速度计的输出是一个在预定范围内的电压值，你需要用ADC（模拟量转数字量）模块将其转换为数字值。我将不会详细介绍ADC是怎么工作的，部分原因是这是个很广的话题，另一个原因是不同平台的ADC都会有差别。有些MCU具有内置ADC模块，而有些则需要外部电路进行ADC转换。不管使用什么类型的ADC模块，你都会得到一个在一定范围内的数值。例如一个10位ADC模块的输出值范围在0 .. 1023间，请注意，1023 = 2 ^ 10 -1。一个12位ADC模块的输出值范围在0 .. 4095内，注意，4095 = 2 ^ 12-1。<br>我们继续，先考虑下一个简单的例子，假设我们从10位ADC模块得到了以下的三个轴的数据：<br>AdcRx = 586<br>AdcRy = 630<br>AdcRz = 561<br>每个ADC模块都有一个参考电压，假设在我们的例子中，它是3.3V。要将一个10位的ADC值转成电压值，我们使用下列公式：<br>VoltsRx = AdcRx * VREF / 1023<br>小注：8位ADC的最大值是255 = 2 ^ 8 -1，12位ADC最大值是4095 = 2 ^ 12 -1。<br>将3个轴的值代入上式，得到：<br>VoltsRx = 586 * 3.3 / 1023 =～1.89V（结果取两位小数）<br>VoltsRy = 630 * 3.3 / 1023 =～2.03V<br>VoltsRz = 561 * 3.3 / 1023 =～1.81V<br>每个加速度计都有一个零加速度的电压值，你可以在它的说明书中找到，这个电压值对应于加速度为0g。通过计算相对0g电压的偏移量我们可以得到一个有符号的电压值。比方说，0g电压值 VzeroG= 1.65V，通过下面的方式可以得到相对0g电压的偏移量:<br>DeltaVoltsRx = 1.89V - 1.65V = 0.24V<br>DeltaVoltsRy = 2.03V - 1.65V = 0.38V<br>DeltaVoltsRz = 1.81V - 1.65V = 0.16V<br>现在我们得到了加速度计的电压值，但它的单位还不是g（9.8m/s^2），最后的转换，我们还需要引入加速度计的灵敏度（Sensitivity），单位通常是 mV/g。比方说，加速度计的灵敏度 Sensitivity= 478.5mV / g = 0.4785V /g。灵敏度值可以在加速度计说明书中找到。要获得最后的单位为g的加速度，我们使用下列公式计算：<br>RX = DeltaVoltsRx /Sensitivity<br>RX = 0.24V / 0.4785V / G =～0.5g<br>RY = 0.38V / 0.4785V / G =～0.79g<br>RZ = 0.16V / 0.4785V / G =～0.33g<br>当然，我们可以把所有的步骤全部放在一个式子里，但我想通过介绍每一个步骤以便让你了解怎么读取一个ADC值并将其转换为单位为g的矢量力的分量。<br>Rx = (AdcRx * Vref / 1023 – VzeroG) / Sensitivity (公式2)<br>Ry = (AdcRy * Vref / 1023 – VzeroG) / Sensitivity<br>Rz = (AdcRz * Vref / 1023 – VzeroG) / Sensitivity<br>现在我们得到了惯性力矢量的三个分量，如果设备除了重力外不受任何外力影响，那我们就可以认为这个方向就是重力矢量的方向。如果你想计算设备相对于地面的倾角，可以计算这个矢量和Z轴之间的夹角。如果你对每个轴的倾角都感兴趣，你可以把这个结果分为两个分量：X轴、Y轴倾角，这可以通过计算重力矢量和X、Y轴的夹角得到。计算这些角度比你想象的简单，现在我们已经算出了Rx，Ry，Rz的值，让我们回到我们的上一个加速度模型，再加一些标注上去：<br><img src="http://image.geek-workshop.com/forum/201208/22/1638594bjbb147i1lqb7cz.png"></p>
 <p>2012-8-22 16:38 上传</p>
 <p><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhuanghe_xing/article/details/forum.php?mod=attachment&amp;aid=NjQxOXw1YTRiMGIyYnwxMzQ2NTg2MjYwfDMxOTV8MTY5NQ==&amp;nothumb=yes"><strong>下载附件</strong>(9.9 KB)</a></p>
-<p>我们感兴趣的角度是向量R和X，Y，Z轴之间的夹角，那就令这些角度为Axr，Ayr，Azr。观察由R和Rx组成的直角三角形：<br>cos(Axr) = Rx / R , 类似的：<br>cos(Ayr) = Ry / R<br>cos(Azr) = Rz / R<br>从 公式1我们可以推导出 R = SQRT( Rx^2 + Ry^2 + Rz^2)<br>通过arccos()函数（cos()的反函数）我们可以计算出所需的角度：<br>Axr = arccos(Rx/R)<br>Ayr = arccos(Ry/R)<br>Azr = arccos(Rz/R)<br>我们花了大段的篇幅来解释加速度计模型，最后所要的只是以上这几个公式。根据你的应用场合，你可能会用到我们推导出来的几个过渡公式。我们接下来要介绍陀螺仪模块，并向大家介绍怎么融合加速度计和陀螺仪的数据以得到更精确的倾角值。<br>但在此之前，我们再介绍几个很常用的公式：<br>cosX = cos(Axr) = Rx / R<br>cosY = cos(Ayr) = Ry / R<br>cosZ = cos(Azr) = Rz / R<br>这三个公式通常称作 <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Direction_cosine">方向余弦</a> ，它主要表达了单位向量（长度为1的向量）和R向量具有相同的方向。你可以很容易地验证：<br>SQRT（cosX ^ 2 + COSY ^ 2 + cosZ ^ 2）= 1<br>这是个很好的性质，因为它避免了我们一直检测R向量的模（长度）。通常如果我们只是对惯性力的方向感兴趣，那标准化模长以简化其他计算是个明智的选择。<br>第二部分陀螺仪<br>对于陀螺仪我们将不会像加速度计一样介绍它的等价盒子模型，而是直接跳到加速度计的第二个模型，通过这个模型我们会向大家介绍陀螺仪是怎么工作的。<br><img src="http://image.geek-workshop.com/forum/201208/22/163859eepfepkeh1glt1lw.png" alt="8.png"></p>
+<p>我们感兴趣的角度是向量R和X，Y，Z轴之间的夹角，那就令这些角度为Axr，Ayr，Azr。观察由R和Rx组成的直角三角形：<br>cos(Axr) = Rx / R , 类似的：<br>cos(Ayr) = Ry / R<br>cos(Azr) = Rz / R<br>从 公式1我们可以推导出 R = SQRT( Rx^2 + Ry^2 + Rz^2)<br>通过arccos()函数（cos()的反函数）我们可以计算出所需的角度：<br>Axr = arccos(Rx/R)<br>Ayr = arccos(Ry/R)<br>Azr = arccos(Rz/R)<br>我们花了大段的篇幅来解释加速度计模型，最后所要的只是以上这几个公式。根据你的应用场合，你可能会用到我们推导出来的几个过渡公式。我们接下来要介绍陀螺仪模块，并向大家介绍怎么融合加速度计和陀螺仪的数据以得到更精确的倾角值。<br>但在此之前，我们再介绍几个很常用的公式：<br>cosX = cos(Axr) = Rx / R<br>cosY = cos(Ayr) = Ry / R<br>cosZ = cos(Azr) = Rz / R<br>这三个公式通常称作 <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Direction_cosine">方向余弦</a> ，它主要表达了单位向量（长度为1的向量）和R向量具有相同的方向。你可以很容易地验证：<br>SQRT（cosX ^ 2 + COSY ^ 2 + cosZ ^ 2）= 1<br>这是个很好的性质，因为它避免了我们一直检测R向量的模（长度）。通常如果我们只是对惯性力的方向感兴趣，那标准化模长以简化其他计算是个明智的选择。<br>第二部分陀螺仪<br>对于陀螺仪我们将不会像加速度计一样介绍它的等价盒子模型，而是直接跳到加速度计的第二个模型，通过这个模型我们会向大家介绍陀螺仪是怎么工作的。<br><img src="http://image.geek-workshop.com/forum/201208/22/163859eepfepkeh1glt1lw.png"></p>
 <p>2012-8-22 16:38 上传</p>
 <p><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhuanghe_xing/article/details/forum.php?mod=attachment&amp;aid=NjQyMHxlMzYwMGE3ZHwxMzQ2NTg2MjYwfDMxOTV8MTY5NQ==&amp;nothumb=yes"><strong>下载附件</strong>(12.55 KB)</a></p>
 <p>陀螺仪的每个通道检测一个轴的旋转。例如，一个2轴陀螺仪检测绕X和Y轴的旋转。为了用数字来表达这些旋转，我们先引进一些符号。首先我们定义：<br>Rxz – 惯性力矢量R在XZ平面上的投影<br>Ryz – 惯性力矢量R在YZ平面的上投影<br>在由Rxz和Rz组成的直角三角形中，运用勾股定理可得：<br>Rxz^2 = Rx^2 + Rz^2 ，同样：<br>Ryz^2 = Ry^2 + Rz^2<br>同时注意：<br>R^2 = Rxz^2 + Ry^2 ，这个公式可以 公式1和上面的公式推导出来，也可由R和Ryz所组成的直角三角形推导出来<br>R ^ 2 = Ryz ^ 2 + RX ^ 2<br>在这篇文章中我们不会用到这些公式，但知道模型中的那些数值间的关系有助于理解。<br>相反，我们按如下方法定义Z轴和Rxz、Ryz向量所成的夹角：<br>AXZ - Rxz（矢量R在XZ平面的投影）和Z轴所成的夹角<br>AYZ - Ryz（矢量R在YZ平面的投影）和Z轴所成夹角<br>现在我们离陀螺仪要测量的东西又近了一步。陀螺仪测量上面定义的角度的变化率。换句话说，它会输出一个与上面这些角度变化率线性相关的值。为了解释这一点，我们先假设在t0时刻，我们已测得绕Y轴旋转的角度（也就是Axz），定义为Axz0，之后在t1时刻我们再次测量这个角度，得到Axz1。角度变化率按下面方法计算：<br>RateAxz = (Axz1 – Axz0) / (t1 – t0).<br>如果用度来表示角度，秒来表示时间，那这个值的单位就是 度/秒。这就是陀螺仪检测的东西。<br>在实际运用中，陀螺仪一般都不会直接给你一个单位为度/秒的值（除非它是个特殊的数字陀螺仪）。就像加速度计一样，你会得到一个ADC值并且要用类似 公式2的式子将其转换成单位为 度/秒的值。让我们来介绍陀螺仪输出值转换中的ADC部分（假设使用10位ADC模块，如果是8位ADC，用1023代替255，如果是12为ADC用4095代替1023）。<br>RateAxz = (AdcGyroXZ * Vref / 1023 – VzeroRate) / Sensitivity <strong>公式3</strong><br>RateAyz = (AdcGyroYZ * Vref / 1023 – VzeroRate) / Sensitivity<br>AdcGyroXZ，AdcGyroYZ - 这两个值由ADC读取，它们分别代表矢量R的投影在XZ和YZ平面内里的转角，也可等价的说，旋转可分解为单独绕Y和X轴的运动。<br>Vref – ADC的参考电压，上例中我们使用3.3V<br>VzeroRate – 是零变化率电压，换句话说它是陀螺仪不受任何转动影响时的输出值，对 <a target="_blank" rel="noopener" href="http://gadgetgangster.com/find-a-project/56?projectnum=213">Acc Gyro</a>板来说，可以认为是1.23V（此值通常可以在说明书中找到——但千万别相信这个值，因为大多数的陀螺仪在焊接后会有一定的偏差，所以可以使用电压计测量每个通道的输出值，通常这个值在焊接后就不会改变，如果有跳动，在设备使用前写一个校准程序对其进行测量，用户应当在设备启动的时候保持设备静止以进行校准）。<br>Sensitivity –陀螺仪的灵敏度，单位mV/(deg/s)，通常写作mV/deg/s,它的意思就是如果旋转速度增加1°/s,陀螺仪的输出就会增加多少mV。 <a target="_blank" rel="noopener" href="http://gadgetgangster.com/find-a-project/56?projectnum=213">Acc_Gyro</a>板的灵敏度值是2mV/deg/s或0.002V/deg/s<br>让我们举个例子，假设我们的ADC模块返回以下值：<br>AdcGyroXZ = 571<br>AdcGyroXZ = 323<br>用上面的公式，在代入 <a target="_blank" rel="noopener" href="http://gadgetgangster.com/find-a-project/56?projectnum=213">Acc Gyro</a>板的参数，可得：<br>RateAxz = (571 * 3.3V / 1023 – 1.23V) / ( 0.002V/deg/s) =~ 306 deg/s<br>RateAyz = (323 * 3.3V / 1023 – 1.23V) / ( 0.002V/deg/s) =~ -94 deg/s<br>换句话说设备绕Y轴（也可以说在XZ平面内）以306°/s速度和绕X轴（或者说YZ平面内）以-94°/s的速度旋转。请注意，负号表示该设备朝着反方向旋转。按照惯例，一个方向的旋转是正值。一份好的陀螺仪说明书会告诉你哪个方向是正的，否则你就要自己测试出哪个旋转方向会使得输出脚电压增加。最好使用示波器进行测试，因为一旦你停止了旋转，电压就会掉回零速率水平。如果你使用的是万用表，你得保持一定的旋转速度几秒钟并同时比较电压值和零速率电压值。如果值大于零速率电压值那说明这个旋转方向是正向。<br>第三部分 将它们综合起来。融合加速度计和陀螺仪的数据。<br>如果你在阅读这篇文章你可能已经有了或准备购买一个IMU设备，或者你准备用独立的加速度计和陀螺仪搭建一个。<br>注：具体的代码实现和算法测试，请阅读这篇文章：<br><a target="_blank" rel="noopener" href="http://starlino.com/imu_kalman_arduino.html">http://starlino.com/imu_kalman_arduino.html</a></p>
-<p>在使用整合了加速度计和陀螺仪的IMU设备时，首先要做的就是统一它们的坐标系。最简单的办法就是将加速度计作为参考坐标系。大多数的加速度计技术说明书都会指出对应于物理芯片或设备的XZY轴方向。例如，下面就是Acc Gyro板的说明书中给出的XYZ轴方向：<br><img src="http://image.geek-workshop.com/forum/201208/22/16390056u825bbb2j10x80.png" alt="9.png"></p>
+<p>在使用整合了加速度计和陀螺仪的IMU设备时，首先要做的就是统一它们的坐标系。最简单的办法就是将加速度计作为参考坐标系。大多数的加速度计技术说明书都会指出对应于物理芯片或设备的XZY轴方向。例如，下面就是Acc Gyro板的说明书中给出的XYZ轴方向：<br><img src="http://image.geek-workshop.com/forum/201208/22/16390056u825bbb2j10x80.png"></p>
 <p>2012-8-22 16:39 上传</p>
 <p><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhuanghe_xing/article/details/forum.php?mod=attachment&amp;aid=NjQyMXxmZDNmNmQ3MnwxMzQ2NTg2MjYwfDMxOTV8MTY5NQ==&amp;nothumb=yes"><strong>下载附件</strong>(35.18 KB)</a></p>
-<p>接下来的步骤是：<br>- 确定陀螺仪的输出对应到上述讨论的RateAxz，RateAyz值。<br>- 根据陀螺仪和加速度计的位置决定是否要反转输出值<br>不要设想陀螺仪陀的输出有XY，它会适应加速度计坐标系里的任何轴，尽管这个输出是IMU模块的一部分。最好的办法就是测试。<br>接下来的示例用来确定哪个陀螺仪的输出对应RateAxz。<br>- 首先将设备保持水平。加速度计的XY轴输出会是零加速度电压（ <a target="_blank" rel="noopener" href="http://gadgetgangster.com/find-a-project/56?projectnum=213">Acc Gyro</a>板的值是1.65V）<br>- 接下来将设备绕Y轴旋转，换句话说就是将设备在XZ平面内旋转，所以X、Z的加速度输出值会变化而Y轴保持不变。<br>-当以匀速旋转设备的时候，注意陀螺仪的哪个通道输出值变化了，其他输出应该保持不变。<br>- 在陀螺仪绕Y轴旋转（在XZ平面内旋转）的时候输出值变化的就是AdcGyroXZ，用于计算RateAxz<br>-最后一步，确认旋转的方向是否和我们的模型对应，因为陀螺仪和加速度的位置关系，有时候你可能要把RateAxz值反向<br>-重复上面的测试，将设备绕Y轴旋转，这次查看加速度计的X轴输出（也就是AdcRx）。如果AdcRx增大（从水平位置开始旋转的第一个90°），那AdcGyroXZ应当减小。这是因为我们观察的是重力矢量，当设备朝一个方向旋转时矢量会朝相反的方向旋转（相对坐标系运动）。所以，如果你不想反转RateAxz，你可以在 <strong>公式3</strong>中引入正负号来解决这个问题：<br>RateAxz = InvertAxz * (AdcGyroXZ * Vref / 1023 – VzeroRate) / Sensitivity ,其中InvertAxz= 1 或-1<br>同样的方法可以用来测试RateAyz，将设备绕X轴旋转，你就能测出陀螺仪的哪个输出对应于RateAyz，以及它是否需要反转。一旦你确定了InvertAyz，你就能可以用下面的公式来计算RateAyz：<br>RateAyz = InvertAyz * (AdcGyroYZ * Vref / 1023 – VzeroRate) / Sensitivity<br>如果对Acc Gyro板进行这些测试，你会得到下面的这些结果：<br>- RateAxz的输出管脚是GX4，InvertAxz = 1<br>- RateAyz输出管脚是GY4，InvertAyz = 1<br>从现在开始我们认为你已经设置好了IMU模块并能计算出正确的Axr，Ayr，Azr值（在第一部分加速度计中定义）以及RateAyz，RateAyz（在第二部分陀螺仪中）。下一步，我们分析这些值之间的关系并得到更准确的设备和地平面之间的倾角。<br>你可能会问自己一个问题，如果加速度计已经告诉我们Axr，Ayr，Azr的倾角，为什么还要费事去得到陀螺仪的数据？答案很简单：加速度计的数据不是100%准确的。有几个原因，还记加速度计测量的是惯性力，这个力可以由重力引起（理想情况只受重力影响），当也可能由设备的加速度（运动）引起。因此，就算加速度计处于一个相对比较平稳的状态，它对一般的震动和机械噪声很敏感。这就是为什么大部分的IMU系统都需要陀螺仪来使加速度计的输出更平滑。但是怎么办到这点呢？陀螺仪不受噪声影响吗？<br>陀螺仪也会有噪声，但由于它检测的是旋转，因此对线性机械运动没那么敏感，不过陀螺仪有另外一种问题，比如漂移（当选择停止的时候电压不会回到零速率电压）。然而，通过计算加速度计和陀螺仪的平均值我们能得到一个相对更准确的当前设备的倾角值，这比单独使用加速度计更好。<br>接下来的步骤我会介绍一种算法，算法受卡尔曼滤波中的一些思想启发，但是它更简单并且更容易在嵌入式设备中实现。在此之前，让我们先看看我们需要算法计算什么值。所要算的就是重力矢量R=[Rx,Ry,Rz]，它可由其他值推导出来，如Axr，Ayr，Azr或者cosX，cosY，cosZ，由这些值我们能得到设备相对地平面的倾角值，这些关系我们在第一部分已经讨论过。有人可能会说-根据第一部分的 公式2我们不是已经得到Rx，Ry，Rz的值了吗？是的，但是记住，这些值只是由加速度计数据推导出来的，如果你直接将它们用于你的程序你会得到难以忍受的噪声。为了避免进一步的混乱，我们重新定义加速度计的测量值：<br>Racc – 是由加速度计测量到得惯性力矢量，它可分解为下面的分量（在XYZ轴上的投影）：<br>RxAcc = (AdcRx * Vref / 1023 – VzeroG) / Sensitivity<br>RyAcc = (AdcRy * Vref / 1023 – VzeroG) / Sensitivity<br>RzAcc = (AdcRz * Vref / 1023 – VzeroG) / Sensitivity<br>现在我们得到了一组只来自于加速度计ADC的值。我们把这组数据叫做“vector”，并使用下面的符号：<br>Racc = [RxAcc,RyAcc,RzAcc]<br>因为这些Racc的分量可由加速度计数据得到，我们可以把它当做算法的输入。<br>请注意Racc测量的是重力，如果你得到的矢量长度约等于1g那么你就是正确的：<br>|Racc| = SQRT(RxAcc^2 +RyAcc^2 + RzAcc^2),<br>但是请确定把矢量转换成下面的矢量非常重要：<br>Racc(normalized) = [RxAcc/|Racc| , RyAcc/|Racc| , RzAcc/|Racc|].<br>这可以确保标准化Racc始终是1。<br>接来下我们引进一个新的向量：<br>Rest = [RxEst,RyEst,RzEst]<br>这就是算法的输出值，它经过陀螺仪数据的修正和基于上一次估算的值。<br>这是算法所做的事：<br>-加速度计告诉我们：“你现在的位置是Racc”<br>我们回答：“谢谢，但让我确认一下”<br>-然后根据陀螺仪的数据和上一次的Rest值修正这个值并输出新的估算值Rest。<br>-我们认为Rest是当前设备姿态的“最佳值”。<br>让我们看看它是怎么实现的。<br>数列的开始，我们先认为加速度值正确并赋值：<br>Rest(0) = Racc(0)<br>Rest和Racc是向量，所以上面的式子可以用3个简单的式子代替，注意别重复了：<br>RxEst（0）= RxAcc（0）<br>RyEst（0）= RyAcc（0）<br>RzEst（0）= RzAcc（0）<br>接下来我们在每个等时间间隔T秒做一次测量，得到新的测量值，并定义为Racc（1），Racc（2），Racc（3）等等。同时，在每个时间间隔我们也计算出新的估算值Rest（1）,Rest（2），Rest（3），等等。<br>假设我们在第n步。我们有两列已知的值可以用：<br>Rest(n-1) – 前一个估算值，Rest(0) = Racc(0)<br>Racc(n) – 当前加速度计测量值<br>在计算Rest（n）前，我们先引进一个新的值，它可由陀螺仪和前一个估算值得到。<br>叫做Rgyro，同样它是个矢量并由3个分量组成：<br>Rgyro = [RxGyro,RyGyro,RzGyro]<br>我们分别计算这个矢量的分量，从RxGyro开始。<br><img src="http://image.geek-workshop.com/forum/201208/22/163901qa8wfgaj8z8ca8kk.png" alt="10.png"></p>
+<p>接下来的步骤是：<br>- 确定陀螺仪的输出对应到上述讨论的RateAxz，RateAyz值。<br>- 根据陀螺仪和加速度计的位置决定是否要反转输出值<br>不要设想陀螺仪陀的输出有XY，它会适应加速度计坐标系里的任何轴，尽管这个输出是IMU模块的一部分。最好的办法就是测试。<br>接下来的示例用来确定哪个陀螺仪的输出对应RateAxz。<br>- 首先将设备保持水平。加速度计的XY轴输出会是零加速度电压（ <a target="_blank" rel="noopener" href="http://gadgetgangster.com/find-a-project/56?projectnum=213">Acc Gyro</a>板的值是1.65V）<br>- 接下来将设备绕Y轴旋转，换句话说就是将设备在XZ平面内旋转，所以X、Z的加速度输出值会变化而Y轴保持不变。<br>-当以匀速旋转设备的时候，注意陀螺仪的哪个通道输出值变化了，其他输出应该保持不变。<br>- 在陀螺仪绕Y轴旋转（在XZ平面内旋转）的时候输出值变化的就是AdcGyroXZ，用于计算RateAxz<br>-最后一步，确认旋转的方向是否和我们的模型对应，因为陀螺仪和加速度的位置关系，有时候你可能要把RateAxz值反向<br>-重复上面的测试，将设备绕Y轴旋转，这次查看加速度计的X轴输出（也就是AdcRx）。如果AdcRx增大（从水平位置开始旋转的第一个90°），那AdcGyroXZ应当减小。这是因为我们观察的是重力矢量，当设备朝一个方向旋转时矢量会朝相反的方向旋转（相对坐标系运动）。所以，如果你不想反转RateAxz，你可以在 <strong>公式3</strong>中引入正负号来解决这个问题：<br>RateAxz = InvertAxz * (AdcGyroXZ * Vref / 1023 – VzeroRate) / Sensitivity ,其中InvertAxz= 1 或-1<br>同样的方法可以用来测试RateAyz，将设备绕X轴旋转，你就能测出陀螺仪的哪个输出对应于RateAyz，以及它是否需要反转。一旦你确定了InvertAyz，你就能可以用下面的公式来计算RateAyz：<br>RateAyz = InvertAyz * (AdcGyroYZ * Vref / 1023 – VzeroRate) / Sensitivity<br>如果对Acc Gyro板进行这些测试，你会得到下面的这些结果：<br>- RateAxz的输出管脚是GX4，InvertAxz = 1<br>- RateAyz输出管脚是GY4，InvertAyz = 1<br>从现在开始我们认为你已经设置好了IMU模块并能计算出正确的Axr，Ayr，Azr值（在第一部分加速度计中定义）以及RateAyz，RateAyz（在第二部分陀螺仪中）。下一步，我们分析这些值之间的关系并得到更准确的设备和地平面之间的倾角。<br>你可能会问自己一个问题，如果加速度计已经告诉我们Axr，Ayr，Azr的倾角，为什么还要费事去得到陀螺仪的数据？答案很简单：加速度计的数据不是100%准确的。有几个原因，还记加速度计测量的是惯性力，这个力可以由重力引起（理想情况只受重力影响），当也可能由设备的加速度（运动）引起。因此，就算加速度计处于一个相对比较平稳的状态，它对一般的震动和机械噪声很敏感。这就是为什么大部分的IMU系统都需要陀螺仪来使加速度计的输出更平滑。但是怎么办到这点呢？陀螺仪不受噪声影响吗？<br>陀螺仪也会有噪声，但由于它检测的是旋转，因此对线性机械运动没那么敏感，不过陀螺仪有另外一种问题，比如漂移（当选择停止的时候电压不会回到零速率电压）。然而，通过计算加速度计和陀螺仪的平均值我们能得到一个相对更准确的当前设备的倾角值，这比单独使用加速度计更好。<br>接下来的步骤我会介绍一种算法，算法受卡尔曼滤波中的一些思想启发，但是它更简单并且更容易在嵌入式设备中实现。在此之前，让我们先看看我们需要算法计算什么值。所要算的就是重力矢量R=[Rx,Ry,Rz]，它可由其他值推导出来，如Axr，Ayr，Azr或者cosX，cosY，cosZ，由这些值我们能得到设备相对地平面的倾角值，这些关系我们在第一部分已经讨论过。有人可能会说-根据第一部分的 公式2我们不是已经得到Rx，Ry，Rz的值了吗？是的，但是记住，这些值只是由加速度计数据推导出来的，如果你直接将它们用于你的程序你会得到难以忍受的噪声。为了避免进一步的混乱，我们重新定义加速度计的测量值：<br>Racc – 是由加速度计测量到得惯性力矢量，它可分解为下面的分量（在XYZ轴上的投影）：<br>RxAcc = (AdcRx * Vref / 1023 – VzeroG) / Sensitivity<br>RyAcc = (AdcRy * Vref / 1023 – VzeroG) / Sensitivity<br>RzAcc = (AdcRz * Vref / 1023 – VzeroG) / Sensitivity<br>现在我们得到了一组只来自于加速度计ADC的值。我们把这组数据叫做“vector”，并使用下面的符号：<br>Racc = [RxAcc,RyAcc,RzAcc]<br>因为这些Racc的分量可由加速度计数据得到，我们可以把它当做算法的输入。<br>请注意Racc测量的是重力，如果你得到的矢量长度约等于1g那么你就是正确的：<br>|Racc| = SQRT(RxAcc^2 +RyAcc^2 + RzAcc^2),<br>但是请确定把矢量转换成下面的矢量非常重要：<br>Racc(normalized) = [RxAcc/|Racc| , RyAcc/|Racc| , RzAcc/|Racc|].<br>这可以确保标准化Racc始终是1。<br>接来下我们引进一个新的向量：<br>Rest = [RxEst,RyEst,RzEst]<br>这就是算法的输出值，它经过陀螺仪数据的修正和基于上一次估算的值。<br>这是算法所做的事：<br>-加速度计告诉我们：“你现在的位置是Racc”<br>我们回答：“谢谢，但让我确认一下”<br>-然后根据陀螺仪的数据和上一次的Rest值修正这个值并输出新的估算值Rest。<br>-我们认为Rest是当前设备姿态的“最佳值”。<br>让我们看看它是怎么实现的。<br>数列的开始，我们先认为加速度值正确并赋值：<br>Rest(0) = Racc(0)<br>Rest和Racc是向量，所以上面的式子可以用3个简单的式子代替，注意别重复了：<br>RxEst（0）= RxAcc（0）<br>RyEst（0）= RyAcc（0）<br>RzEst（0）= RzAcc（0）<br>接下来我们在每个等时间间隔T秒做一次测量，得到新的测量值，并定义为Racc（1），Racc（2），Racc（3）等等。同时，在每个时间间隔我们也计算出新的估算值Rest（1）,Rest（2），Rest（3），等等。<br>假设我们在第n步。我们有两列已知的值可以用：<br>Rest(n-1) – 前一个估算值，Rest(0) = Racc(0)<br>Racc(n) – 当前加速度计测量值<br>在计算Rest（n）前，我们先引进一个新的值，它可由陀螺仪和前一个估算值得到。<br>叫做Rgyro，同样它是个矢量并由3个分量组成：<br>Rgyro = [RxGyro,RyGyro,RzGyro]<br>我们分别计算这个矢量的分量，从RxGyro开始。<br><img src="http://image.geek-workshop.com/forum/201208/22/163901qa8wfgaj8z8ca8kk.png"></p>
 <p>2012-8-22 16:39 上传</p>
 <p><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhuanghe_xing/article/details/forum.php?mod=attachment&amp;aid=NjQyMnwxZDk2MjFlNXwxMzQ2NTg2MjYwfDMxOTV8MTY5NQ==&amp;nothumb=yes"><strong>下载附件</strong>(12.55 KB)</a></p>
 <p>首先观察陀螺仪模型中下面的关系，根据由Rz和Rxz组成的直角三角形我们能推出：<br>tan(Axz) = Rx/Rz =&gt; Axz = atan2(Rx,Rz)<br>你可能从未用过atan2这个函数，它和atan类似，但atan返回值范围是（-PI/2,PI/2），atan2返回值范围是（-PI，PI），并且他有两个参数。它能将Rx，Rz值转换成360°（-PI，PI）内的角度。更多信息请阅读 <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Atan2">atan2</a>.<br>所以，知道了RxEst（n-1）和RzEst（n-1）我们发现：<br>Axz(n-1) = atan2( RxEst(n-1) , RzEst(n-1) ).<br>记住，陀螺仪测量的是Axz角度变化率，因此，我们可以按如下方法估算新的角度Axz（n）：<br>Axz(n) = Axz(n-1) + RateAxz(n) * T<br>请记住，RateAxz可由陀螺仪ADC读取得到。通过使用平均转速可由得到一个更准确的公式：<br>RateAxzAvg =（RateAxz（N）+ RateAxz（N-1））/ 2<br>Axz(n) = Axz(n-1) + RateAxzAvg * T<br>同理可得：<br>Ayz(n) = Ayz(n-1) + RateAyz(n) * T<br>好了，现在我们有了Axz（n），Ayz（n）。现在我们如何推导出RxGyro/RyGyro?根据 公式1我们可以把Rgyro长度写成下式：<br>| Rgyro | = SQRT（RxGyro ^ 2 + RyGyro ^ 2 + RzGyro ^ 2）<br>同时，因为我们已经将Racc标准化，我们可以认为它的长度是1并且旋转后保持不变，所以写成下面的方式相对比较安全：<br>| Rgyro | = 1<br>我们暂时采用更短的符号进行下面的计算：<br>x =RxGyro , y=RyGyro, z=RzGyro<br>根据上面的关系可得：<br>x = x / 1 = x / SQRT(x^2+y^2+z^2)<br>分子分母同除以SQRT（X ^ 2 + Z ^ 2）<br>x = ( x / SQRT(x^2 + z^2) ) / SQRT( (x^2 + y^2 + z^2) / (x^2 + z^2) )<br>注意x / SQRT(x^2 + z^2) = sin(Axz), 所以:<br>x = sin(Axz) / SQRT (1 + y^2 / (x^2 + z^2) )<br>将SQRT内部分式的分子分母同乘以z^2<br>x = sin(Axz) / SQRT (1 + y^2 * z ^2 / (z^2 * (x^2 + z^2)) )<br><strong>注意 z / SQRT(x^2 + z^2) = cos(Axz)， y / z = tan(Ayz), 所以最后可得:</strong><br>x = sin(Axz) / SQRT (1 + cos(Axz)^2 * tan(Ayz)^2 )<br>替换成原来的符号可得：<br>RxGyro = sin(Axz(n)) / SQRT (1 + cos(Axz(n))^2 * tan(Ayz(n))^2 )<br>同理可得：<br>RyGyro = sin(Ayz(n)) / SQRT (1 + cos(Ayz(n))^2 * tan(Axz(n))^2 )<br>提示：这个公式还可以更进一步简化。分式两边同除以sin（axz（你））可得：<br>RxGyro = 1 / SQRT (1/ sin(Axz(n))^2 + cos(Axz(n))^2 / sin(Axz(n))^2 * tan(Ayz(n))^2 )<br>RxGyro = 1 / SQRT (1/ sin(Axz(n))^2 + cot(Axz(n))^2 * sin(Ayz(n))^2 / cos(Ayz(n))^2 )<br>现在加减  cos(Axz(n))^2/sin(Axz(n))^2  = cot(Axz(n))^2<br>RxGyro = 1 / SQRT (1/ sin(Axz(n))^2 - cos(Axz(n))^2/sin(Axz(n))^2  + cot(Axz(n))^2 * sin(Ayz(n))^2 / cos(Ayz(n))^2 + cot(Axz(n))^2 )<br>综合条件1、2和3、4可得：<br>RxGyro = 1 / SQRT (1 +  cot(Axz(n))^2 * sec(Ayz(n))^2 ),   其中 cot(x) = 1 / tan(x) ， sec(x) = 1 / cos(x)<br>这个公式只用了2个三角函数并且计算量更低。如果你有Mathematica程序，通过使用 FullSimplify [Sin[A]^2/ ( 1 + Cos[A]^2 * Tan[B]^2)]你可以验证这个公式。</p>
@@ -595,7 +608,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
+                            
+                                <a href="/tags/%E7%94%B5%E5%AD%90/">
+                                    <span class="chip bg-color">电子</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -1073,11 +1090,23 @@ PWMA
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            冥狐
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%94%B5%E5%AD%90/" class="post-category">
+                                    电子
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%94%B5%E5%AD%90/">
+                        <span class="chip bg-color">电子</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1111,11 +1140,23 @@ PWMA
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            DarkFox
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%94%B5%E5%AD%90/" class="post-category">
+                                    电子
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%94%B5%E5%AD%90/">
+                        <span class="chip bg-color">电子</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1344,16 +1385,16 @@ PWMA
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2020-2021</span>
+                <span id="year">2021</span>
             
-            <span id="year">2020</span>
+            <span id="year">2021</span>
             <a href="/about" target="_blank">DarkFox</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">23.2k</span>&nbsp;字
+                class="white-color">28.6k</span>&nbsp;字
             
             
             
@@ -1382,7 +1423,7 @@ PWMA
                     var days = hours * 24;
                     var years = days * 365;
                     var today = new Date();
-                    var startYear = "2020";
+                    var startYear = "2021";
                     var startMonth = "11";
                     var startDate = "18";
                     var startHour = "0";

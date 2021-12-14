@@ -431,12 +431,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%94%B5%E5%AD%90/">
+                                <span class="chip bg-color">电子</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E7%94%B5%E5%AD%90/" class="post-category">
+                                电子
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -452,7 +465,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2021-11-25
+                    2021-12-14
                 </div>
                 
 
@@ -494,9 +507,9 @@
 <h1 id="Ⅰ-陀螺仪"><a href="#Ⅰ-陀螺仪" class="headerlink" title="Ⅰ.陀螺仪"></a>Ⅰ.陀螺仪</h1><p>陀螺仪是用高速回转体的动量矩敏感壳体相对惯性空间绕正交于自转轴的一个或二个轴的角运动检测装置。利用其他原理制成的角运动检测装置起同样功能的也称陀螺仪。<br>从力学的观点近似的分析陀螺的运动时，可以把它看成是一个刚体，刚体上有一个万向支点，而陀螺可以绕着这个支点作三个自由度的转动，所以陀螺的运动是属于刚体绕一个定点的转动运动。更确切地说，一个绕对称铀高速旋转的飞轮转子叫陀螺。将陀螺安装在框架装置上，使陀螺的自转轴有角转动的自由度，这种装置的总体叫做陀螺仪。<br>陀螺仪的原理就是，一个旋转物体的旋转轴所指的方向在不受外力影响时，是不会改变的。人们根据这个道理，用它来保持方向，制造出来的东西就叫陀螺仪。我们骑自行车其实也是利用了这个原理。轮子转得越快越不容易倒，因为车轴有一股保持水平的力量。陀螺仪在工作时要给它一个力，使它快速旋转起来，一般能达到每分钟几十万转，可以工作很长时间。然后用多种方法读取轴所指示的方向，并自动将数据信号传给控制系统。</p>
 <h1 id="Ⅱ-MPU6050模块"><a href="#Ⅱ-MPU6050模块" class="headerlink" title="Ⅱ.MPU6050模块"></a>Ⅱ.MPU6050模块</h1><p>简介：<br>MPU6050内部整合了<strong>三轴MEMS陀螺仪</strong>、<strong>三轴MEMS加速度计</strong>以及一个可扩展的<strong>数字运动处理器DMP(Digital Motion Processor)<strong>，而且还可以连接一个第三方数字传感器(如磁力计)，这样的话，就可以通过IIC接口输出一个9轴信号(链接第三方数字传感器才可以输出九轴信号，否则只有六轴信号)。更加方便的是，有了DMP，可以结合InvenSense公司提供的运动处理资料库，实现姿态解算。通过自带的DMP，可以通过</strong>IIC接口</strong>输出9轴融合演算的数据，大大降低了运动处理运算对操作系统的负荷，同时也降低了开发难度。<em><strong>其实，简单一句话说，陀螺仪就是测角速度的，加速度传感器就是测角加速度的，二者数据通过算法就可以得到PITCH、YAW、ROLL角了。</strong></em></p>
 <p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20140401183456562" alt="右手笛卡尔坐标系"></p>
-<p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20140401183518578" alt="img"></p>
-<p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20140401183525562" alt="img"></p>
-<p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20140401183537890" alt="img"></p>
+<p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20140401183518578"></p>
+<p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20140401183525562"></p>
+<p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20140401183537890"></p>
 <p>特点：</p>
 <ol>
 <li>以数字形式输出 6 轴或 9 轴（需外接磁传感器）的旋转矩阵、四元数(quaternion)、欧拉角格式(Euler Angle forma)的融合演算数据（需 DMP 支持）</li>
@@ -514,8 +527,8 @@
 <li>高达 400Khz 的 IIC 通信接口</li>
 <li>超小封装尺寸： 4x4x0.9mm（QFN）</li>
 </ol>
-<p>MPU6050三轴角(姿态角)<br><img src="https://img-blog.csdnimg.cn/20210527164308375.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpaGFvdGlhbjExMQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><strong>绕向即为正方向，可根据右手螺旋定则确定方向。</strong><br>MPU6050框图：<br><img src="https://img-blog.csdnimg.cn/20210527152447545.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpaGFvdGlhbjExMQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述">可以很清晰地观察到，MPU6050芯片中内置了三轴加速度传感器、三轴陀螺仪和一个温度传感器。右侧INT为中断输出脚，TCS为片选脚、AD0为设置地址脚、SCL和SDA为主IIC接口、AUX_CL和AUX_DA为从IIC接口，主要用到的是AD0、SCL、SDA。</p>
-<p>相关寄存器(想深入了解的朋友可以看一下)结合后面的代码更容易理解一些<br>①<br><img src="https://img-blog.csdnimg.cn/20210527153154426.jpg#pic_center" alt="在这里插入图片描述"><br>DEVICE_RESE=1，复位MPU6050，复位完成后，自动清零。SLEEP=1，进入睡眠模式；SLEEP=0，正常工作模式。TEMP_DIS，用于设置是否使能温度传感器，设置为0，则使能CLKSEL[2:0]，用于选择系统时钟源，如下所示：</p>
+<p>MPU6050三轴角(姿态角)<br><img src="https://img-blog.csdnimg.cn/20210527164308375.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpaGFvdGlhbjExMQ==,size_16,color_FFFFFF,t_70#pic_center"><br><strong>绕向即为正方向，可根据右手螺旋定则确定方向。</strong><br>MPU6050框图：<br><img src="https://img-blog.csdnimg.cn/20210527152447545.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpaGFvdGlhbjExMQ==,size_16,color_FFFFFF,t_70#pic_center">可以很清晰地观察到，MPU6050芯片中内置了三轴加速度传感器、三轴陀螺仪和一个温度传感器。右侧INT为中断输出脚，TCS为片选脚、AD0为设置地址脚、SCL和SDA为主IIC接口、AUX_CL和AUX_DA为从IIC接口，主要用到的是AD0、SCL、SDA。</p>
+<p>相关寄存器(想深入了解的朋友可以看一下)结合后面的代码更容易理解一些<br>①<br><img src="https://img-blog.csdnimg.cn/20210527153154426.jpg#pic_center"><br>DEVICE_RESE=1，复位MPU6050，复位完成后，自动清零。SLEEP=1，进入睡眠模式；SLEEP=0，正常工作模式。TEMP_DIS，用于设置是否使能温度传感器，设置为0，则使能CLKSEL[2:0]，用于选择系统时钟源，如下所示：</p>
 <table>
 <thead>
 <tr>
@@ -556,9 +569,9 @@
 <td>关闭时钟，保持时序产生电路复位状态</td>
 </tr>
 </tbody></table>
-<p>总之，电源管理寄存器就是复位MPU6050<br>②<br><img src="https://img-blog.csdnimg.cn/20210527154441137.jpg#pic_center" alt="在这里插入图片描述"><br>该寄存器我们只关心FS_SEL[1:0]这两个位，用于设置陀螺仪的满量程范围：0，±250°/s；1，±500°/s；2，±1000°/s；3，±2000°/s；我们一般设置为3，即±2000°/S，因为陀螺仪的ADC为16位分辨率，所以得到灵敏度为：65536/4000=16.4LSB/(°/S)。<br>总之，陀螺仪配置寄存器就是配置陀螺仪满量程范围，设置最大<br>③<br><img src="https://img-blog.csdnimg.cn/20210527154625454.jpg#pic_center" alt="在这里插入图片描述"><br>该寄存器我们只关心AFS_SEL[1:0]这两个位，用于设置加速度传感器的满量程范围：0，±2g；1，±4g；2，±8g；3，±16g；我们一般设置为0，即±2g，因为加速度传感器的ADC也是16位，所以得到灵敏度为：65536/4=16384LSB/g。<br>总之，加速度传感器配置寄存器就是配置加速度传感器满量程范围，不宜过大<br>④<br><img src="https://img-blog.csdnimg.cn/20210527154801757.jpg#pic_center" alt="在这里插入图片描述"><br>该寄存器用于控制FIFO使能，在简单读取传感器数据的时候，可以不用FIFO，设置对应位为：0，即可禁止FIFO，设置为1，则使能FIFO。加速度传感器的三个轴，全由一个位(ACCEL_FIFO_EN)控制，只要该位为1，则加速度传感器三个通道都开启FIFO；但是陀螺仪传感器的三个轴需要一个一个设置，即XYZ轴分别配置。<br>总之，FIFO使能寄存器用于控制使能FIFO(First Input First Output)<br>⑤<br><img src="https://img-blog.csdnimg.cn/20210527160414156.jpg#pic_center" alt="在这里插入图片描述"><br>该寄存器用于设置MPU6050的陀螺仪采样频率，计算公式为：**采样频率 = 陀螺仪输出频率 / (1+SMPLRT_DIV)**。这里陀螺仪的输出频率，是1Khz或者8Khz，与数字低通滤波器（DLPF）的设置有关，当DLPF_CFG=0或7的时候，频率为8Khz，其他情况是1Khz。而且DLPF滤波频率一般设置为采样率的一半。采样率，我们假定设置为50Hz，那么：SMPLRT_DIV=1000/50-1=19。<br>总之，陀螺仪采样率分频寄存器就是用于设置陀螺仪的采样频率，如果采样频率为50Hz，那么采样周期就为1/50=20ms，即20ms采集一次陀螺仪的数据。<br>⑥<br><img src="https://img-blog.csdnimg.cn/20210527160935948.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpaGFvdGlhbjExMQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>总之，配置寄存器就是设置数字低通滤波器的DLPF_CFG位来结合陀螺仪采样分频寄存器来共同设置采样周期。<br>⑦<br><img src="https://img-blog.csdnimg.cn/20210527162315369.jpg#pic_center" alt="在这里插入图片描述"><br>该寄存器的LP_WAKE_CTRL用于控制低功耗时的唤醒频率，用不到。剩下的6位，分别控制加速度和陀螺仪的x/y/z轴是否进入待机模式，这里我们全部都不进入待机模式，所以全部设置为：0 ，即可。<br>总之，电源管理寄存器2就是用于设置加速度传感器和陀螺仪的X/Y/Z轴是进入休眠还是正常工作。<br>⑧<img src="https://img-blog.csdnimg.cn/20210527162507349.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpaGFvdGlhbjExMQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>加速度传感器数据输出寄存器总共由6个寄存器组成，输出X/Y/Z三个轴的加速度传感器值，高字节在前，低字节在后。<br>总之，加速度传感器数据输出寄存器就是把加速度传感器测量到的数据输出出来。<br>⑨<br><img src="https://img-blog.csdnimg.cn/2021052716305611.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpaGFvdGlhbjExMQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>陀螺仪数据输出寄存器总共由6个寄存器组成，输出X/Y/Z三个轴的陀螺仪传感器数据，高字节在前，低字节在后。<br>总之，陀螺仪数据输出寄存器就是把陀螺仪测量到的数据输出出来。<br>⑩<br><img src="https://img-blog.csdnimg.cn/20210527163838510.jpg#pic_center" alt="在这里插入图片描述"><br>通过读取0X41（高8位）和0X42（低8位）寄存器得到，温度换算公式为：<br>Temperature = 36.53 + regval/340。其中，Temperature为计算得到的温度值，单位为℃，regval为从0X41和0X42读到的温度传感器值。<br>总之，温度传感器数据输出寄存器就是把温度寄存器测量到的数据处处出来。</p>
-<h1 id="3-硬件连接"><a href="#3-硬件连接" class="headerlink" title="3.硬件连接"></a>3.硬件连接</h1><p><img src="https://img-blog.csdnimg.cn/20210527164235503.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpaGFvdGlhbjExMQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><strong>VCC</strong>:接5V电源<br><strong>GND</strong>:接地<br><strong>SCL</strong>:主IIC时钟线 (我接的PB10)<br><strong>SDA</strong>:主IIC数据线 (我接的PB11)<br><strong>AD0</strong>:地址线，接3V地址为0x68，接地地址为0x69（我接的PA15，高电平，地址为0x68）</p>
-<h1 id="4-软件代码————官方自带库"><a href="#4-软件代码————官方自带库" class="headerlink" title="4.软件代码————官方自带库"></a>4.软件代码————官方自带库</h1><p>MPU6050处理寄存器的相关数据时需要移植几个官方库，以便将数据处理为所需要的欧拉角。正点原子共提供了五个源码，如下图：<br><img src="https://img-blog.csdnimg.cn/20210527171530241.jpg#pic_center" alt="在这里插入图片描述"><br>这些是需要在写MPU6050代码之前移植过来的，具体代码内容大家可以下载下方源码查看。</p>
+<p>总之，电源管理寄存器就是复位MPU6050<br>②<br><img src="https://img-blog.csdnimg.cn/20210527154441137.jpg#pic_center"><br>该寄存器我们只关心FS_SEL[1:0]这两个位，用于设置陀螺仪的满量程范围：0，±250°/s；1，±500°/s；2，±1000°/s；3，±2000°/s；我们一般设置为3，即±2000°/S，因为陀螺仪的ADC为16位分辨率，所以得到灵敏度为：65536/4000=16.4LSB/(°/S)。<br>总之，陀螺仪配置寄存器就是配置陀螺仪满量程范围，设置最大<br>③<br><img src="https://img-blog.csdnimg.cn/20210527154625454.jpg#pic_center"><br>该寄存器我们只关心AFS_SEL[1:0]这两个位，用于设置加速度传感器的满量程范围：0，±2g；1，±4g；2，±8g；3，±16g；我们一般设置为0，即±2g，因为加速度传感器的ADC也是16位，所以得到灵敏度为：65536/4=16384LSB/g。<br>总之，加速度传感器配置寄存器就是配置加速度传感器满量程范围，不宜过大<br>④<br><img src="https://img-blog.csdnimg.cn/20210527154801757.jpg#pic_center"><br>该寄存器用于控制FIFO使能，在简单读取传感器数据的时候，可以不用FIFO，设置对应位为：0，即可禁止FIFO，设置为1，则使能FIFO。加速度传感器的三个轴，全由一个位(ACCEL_FIFO_EN)控制，只要该位为1，则加速度传感器三个通道都开启FIFO；但是陀螺仪传感器的三个轴需要一个一个设置，即XYZ轴分别配置。<br>总之，FIFO使能寄存器用于控制使能FIFO(First Input First Output)<br>⑤<br><img src="https://img-blog.csdnimg.cn/20210527160414156.jpg#pic_center"><br>该寄存器用于设置MPU6050的陀螺仪采样频率，计算公式为：**采样频率 = 陀螺仪输出频率 / (1+SMPLRT_DIV)**。这里陀螺仪的输出频率，是1Khz或者8Khz，与数字低通滤波器（DLPF）的设置有关，当DLPF_CFG=0或7的时候，频率为8Khz，其他情况是1Khz。而且DLPF滤波频率一般设置为采样率的一半。采样率，我们假定设置为50Hz，那么：SMPLRT_DIV=1000/50-1=19。<br>总之，陀螺仪采样率分频寄存器就是用于设置陀螺仪的采样频率，如果采样频率为50Hz，那么采样周期就为1/50=20ms，即20ms采集一次陀螺仪的数据。<br>⑥<br><img src="https://img-blog.csdnimg.cn/20210527160935948.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpaGFvdGlhbjExMQ==,size_16,color_FFFFFF,t_70#pic_center"><br>总之，配置寄存器就是设置数字低通滤波器的DLPF_CFG位来结合陀螺仪采样分频寄存器来共同设置采样周期。<br>⑦<br><img src="https://img-blog.csdnimg.cn/20210527162315369.jpg#pic_center"><br>该寄存器的LP_WAKE_CTRL用于控制低功耗时的唤醒频率，用不到。剩下的6位，分别控制加速度和陀螺仪的x/y/z轴是否进入待机模式，这里我们全部都不进入待机模式，所以全部设置为：0 ，即可。<br>总之，电源管理寄存器2就是用于设置加速度传感器和陀螺仪的X/Y/Z轴是进入休眠还是正常工作。<br>⑧<img src="https://img-blog.csdnimg.cn/20210527162507349.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpaGFvdGlhbjExMQ==,size_16,color_FFFFFF,t_70#pic_center"><br>加速度传感器数据输出寄存器总共由6个寄存器组成，输出X/Y/Z三个轴的加速度传感器值，高字节在前，低字节在后。<br>总之，加速度传感器数据输出寄存器就是把加速度传感器测量到的数据输出出来。<br>⑨<br><img src="https://img-blog.csdnimg.cn/2021052716305611.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpaGFvdGlhbjExMQ==,size_16,color_FFFFFF,t_70#pic_center"><br>陀螺仪数据输出寄存器总共由6个寄存器组成，输出X/Y/Z三个轴的陀螺仪传感器数据，高字节在前，低字节在后。<br>总之，陀螺仪数据输出寄存器就是把陀螺仪测量到的数据输出出来。<br>⑩<br><img src="https://img-blog.csdnimg.cn/20210527163838510.jpg#pic_center"><br>通过读取0X41（高8位）和0X42（低8位)寄存器得到，温度换算公式为：<br>Temperature = 36.53 + regval/340。其中，Temperature为计算得到的温度值，单位为℃，regval为从0X41和0X42读到的温度传感器值。<br>总之，温度传感器数据输出寄存器就是把温度寄存器测量到的数据处处出来。</p>
+<h1 id="3-硬件连接"><a href="#3-硬件连接" class="headerlink" title="3.硬件连接"></a>3.硬件连接</h1><p><img src="https://img-blog.csdnimg.cn/20210527164235503.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpaGFvdGlhbjExMQ==,size_16,color_FFFFFF,t_70#pic_center"><br><strong>VCC</strong>:接5V电源<br><strong>GND</strong>:接地<br><strong>SCL</strong>:主IIC时钟线 (我接的PB10)<br><strong>SDA</strong>:主IIC数据线 (我接的PB11)<br><strong>AD0</strong>:地址线，接3V地址为0x68，接地地址为0x69（我接的PA15，高电平，地址为0x68)</p>
+<h1 id="4-软件代码————官方自带库"><a href="#4-软件代码————官方自带库" class="headerlink" title="4.软件代码————官方自带库"></a>4.软件代码————官方自带库</h1><p>MPU6050处理寄存器的相关数据时需要移植几个官方库，以便将数据处理为所需要的欧拉角。正点原子共提供了五个源码，如下图：<br><img src="https://img-blog.csdnimg.cn/20210527171530241.jpg#pic_center"><br>这些是需要在写MPU6050代码之前移植过来的，具体代码内容大家可以下载下方源码查看。</p>
 <h1 id="5-软件代码————其他代码"><a href="#5-软件代码————其他代码" class="headerlink" title="5.软件代码————其他代码"></a>5.软件代码————其他代码</h1><p>MPU6050.h<br><strong>主要宏定义一些MPU6050寄存器的地址，方便IIC发送给寄存器数据初始化MPU6050。</strong></p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifndef</span> <span class="token expression">__MPU6050_H</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">__MPU6050_H</span></span>
@@ -1168,7 +1181,7 @@ u8 <span class="token function">MPU_IIC_Read_Byte</span><span class="token punct
 <span class="token number">12</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>这是个大坑</strong><br><strong>补充3：关于MPU6050参考点</strong><br>当代码烧入后，MPU的参考点是什么呢？参考点其实就是MPU6050初始化之后一开始的位置，没有一个强制的规定哪一个方向就是基准点，<strong>初始化之后的初始位置就是(0，0，0)点</strong>。<br><strong>补充4：想到了再写吧</strong></p>
-<h1 id="7-效果展示-可以先来看这个"><a href="#7-效果展示-可以先来看这个" class="headerlink" title="7.效果展示(可以先来看这个)"></a>7.效果展示(可以先来看这个)</h1><p><img src="https://img-blog.csdnimg.cn/20210527174024629.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpaGFvdGlhbjExMQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>PITCH(俯仰角)、ROLL(翻滚角)、YAW(偏航角)，单位均为 度。TEMP为当前温度，单位为摄氏度。</p>
+<h1 id="7-效果展示-可以先来看这个"><a href="#7-效果展示-可以先来看这个" class="headerlink" title="7.效果展示(可以先来看这个)"></a>7.效果展示(可以先来看这个)</h1><p><img src="https://img-blog.csdnimg.cn/20210527174024629.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpaGFvdGlhbjExMQ==,size_16,color_FFFFFF,t_70#pic_center"><br>PITCH(俯仰角)、ROLL(翻滚角)、YAW(偏航角)，单位均为 度。TEMP为当前温度，单位为摄氏度。</p>
 <h1 id="8-参考链接"><a href="#8-参考链接" class="headerlink" title="8.参考链接"></a>8.参考链接</h1><p>[1]<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E9%99%80%E8%9E%BA%E4%BB%AA/84317?fr=aladdin">百度百科 陀螺仪</a><br>[2]<a target="_blank" rel="noopener" href="http://www.openedv.com/docs/index.html">正点原子资料下载中心</a><br>[3]<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/FIFO%E5%AD%98%E5%82%A8%E5%99%A8/4530258?fr=aladdin">百度百科 FIFO储存器</a><br>[4]<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1e38ad3d4bfb">姿态角Pitch、Roll、Yaw角介绍</a></p>
 <h1 id="9-完整版代码链接"><a href="#9-完整版代码链接" class="headerlink" title="9.完整版代码链接"></a>9.完整版代码链接</h1><p><a target="_blank" rel="noopener" href="https://download.csdn.net/download/lihaotian111/19131254?spm=1001.2014.3001.5501">MPU6050模块通过OLED显示姿态角源码</a></p>
 
@@ -1234,7 +1247,11 @@ u8 <span class="token function">MPU_IIC_Read_Byte</span><span class="token punct
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
+                            
+                                <a href="/tags/%E7%94%B5%E5%AD%90/">
+                                    <span class="chip bg-color">电子</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -1704,11 +1721,23 @@ u8 <span class="token function">MPU_IIC_Read_Byte</span><span class="token punct
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            DarkFox
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%94%B5%E5%AD%90/" class="post-category">
+                                    电子
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%94%B5%E5%AD%90/">
+                        <span class="chip bg-color">电子</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1986,16 +2015,16 @@ u8 <span class="token function">MPU_IIC_Read_Byte</span><span class="token punct
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2020-2021</span>
+                <span id="year">2021</span>
             
-            <span id="year">2020</span>
+            <span id="year">2021</span>
             <a href="/about" target="_blank">DarkFox</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">23.2k</span>&nbsp;字
+                class="white-color">28.6k</span>&nbsp;字
             
             
             
@@ -2024,7 +2053,7 @@ u8 <span class="token function">MPU_IIC_Read_Byte</span><span class="token punct
                     var days = hours * 24;
                     var years = days * 365;
                     var today = new Date();
-                    var startYear = "2020";
+                    var startYear = "2021";
                     var startMonth = "11";
                     var startDate = "18";
                     var startHour = "0";
