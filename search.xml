@@ -29,31 +29,6 @@
     
     
     <entry>
-      <title>数学题目</title>
-      <link href="/posts/undefined/"/>
-      <url>/posts/undefined/</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/202112081252886.png"></p><span id="more"></span><p>这个题目有一个限制，就是只能用初等几何来做，那些想用三角函数什么的来硬算出来的，请收起你的想法！</p><p>一开始我还以为加个辅助线什么的就可以做了，如下图所示，但是我算了一下发现不是这么回事。</p><p>按照这个思路来算的话总是会回归到一个等式a+b=b+a</p><p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/202112081255018.png"></p><p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/202112081256398.png"></p><p>不相信的话，你大可一试，至此，思路中断，然后我开始去各大平台寻找一些答案的解析和步骤思路什么的。还真找到了题解</p><p><a href="https://zhuanlan.zhihu.com/p/375054931">知乎的题解</a> <a href="https://www.youtube.com/watch?v=HQc-54hQ8kw">油管的题解</a></p><p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/202112081301795.png"></p><p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/202112081302693.png"></p><p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/202112081302794.png"></p><p>现在回头看这道鬼题真是坑。。。。。。。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 数学 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 数学 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>太阳能板向阳自校准</title>
       <link href="/posts/undefined/"/>
       <url>/posts/undefined/</url>
@@ -79,31 +54,6 @@
     
     
     <entry>
-      <title>新玩具</title>
-      <link href="/posts/undefined/"/>
-      <url>/posts/undefined/</url>
-      
-        <content type="html"><![CDATA[<center>   </center><span id="more"></span><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>数位板就不介绍了，省的有人说我打广告，不过我买的这个数位板是真的大，和我笔记本屏幕差不多了（我笔记本13.3）</p><p>电脑上也没有什么可以用来测试这个板子的软件，所以我就用了下微软的那个白板。简单的试了下感觉还可以。</p><p>ps：最后那个图是我瞎画的</p><h3 id="试用"><a href="#试用" class="headerlink" title="试用"></a>试用</h3><p>这个新玩具看着还可以，颜值也不低，就是不耐脏，可以明显的看出使用痕迹。</p><p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20210809191034.jpg"></p><p>简单的试用了几下，手感还不错，就是bug略多。因为我有三块屏幕，来回切换时老是卡在一个地方，并且还有空气墙，数位板不能在整块屏幕上写字（(╯▔皿▔)╯）</p><h3 id="修正bug"><a href="#修正bug" class="headerlink" title="修正bug"></a>修正bug</h3><p>但是问题不大，谁让咱是科技宅。经过简单的测试与判断，这个板子应该是在映射时发生了点小问题，导致了不能在比板子大的地方书写。在修正这个bug前，我找到了一个折中方案</p><p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20210809191433.jpg"></p><p>我有一块这样的小屏幕 ，大概10寸（忽略那条黑线）。50块钱从学弟手里搞的，原来一直当作状态屏使用了（显示电脑的资源）。现在看来可以给它分配个新任务了；</p><p>可以用它来显示whiteboard；</p><p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20210809191906.jpg"></p><p>然后它完美的完成了任务（内心ps：垃圾板子驱动，占我一块屏）；</p><p>试用了一下白板的一些功能，比如图形自动矫正之类的，画了一篇屑作。</p><h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20210809190330.png" alt="瞎几把画的"></p><p>右下角是我的签名，我打赌你猜不出来写的啥(<em>^_^</em>)</p><h3 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h3><p>我也是刚拿到这个板子一天不到，还有很多功能（bug）还没测试，例如上面的按键，对于手机的适配等。改天没事了测试一下再补上吧。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 外设 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 外设 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>无线音频发射器（简易）</title>
       <link href="/posts/undefined/"/>
       <url>/posts/undefined/</url>
@@ -111,31 +61,6 @@
         <content type="html"><![CDATA[<center>   </center><span id="more"></span><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这个小实验是我模仿油管中的一个小玩意做的（可惜实物已经被我拆了），所以大伙权当开开眼了。</p><p>大致长这个模样<strong>↓</strong></p><p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20210807173829.png"></p><p><a href="https://www.bilibili.com/video/BV1cX4y1G7Jc">原视频链接</a></p><p>感兴趣的可以去康康</p><h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20210807171627.png" alt="原理图"></p><p>其实这个小实验的原理也很简单，但是也有难点，难点都在那个三极管上面其他的倒是没啥</p><p>可惜我没时间讲述三极管的基本原理，在此借别人的光照亮一下。</p><p><a href="https://www.bilibili.com/video/BV1Fx411D71n">三极管动画演示</a></p><p><a href="https://www.bilibili.com/video/BV1kv411574Y">三极管原理</a></p><p>在此只需要知道三极管是一个用于信号放大的器件就可以了（改天没事了我亲自讲述一下三极管的原理）。用三极管组成一个共射放大电路，并使其工作在它的放大区，然后放大了咪头（麦克风）或者其他声源产生的电信号(<a href="https://www.bilibili.com/video/BV1sK4y1n79k">麦克风原理</a>)。之后这个信号作用在激光管上（工作电压看型号而定），就可以产生和声信号对应的光亮变化。你也可以不用麦克风，改用一根音频线（就是你的耳机线，只不过是只使用单声道）。如果使用麦克风的话，麦克风必须是有源的（用于上面那个电路的话）。</p><p>而其他的元器件，类如电阻、电容、开关（开关就不用说了吧）,电阻是用来限流的，电容的话，看下面这个视频你就会有个大致的了解了。</p><p><a href="https://www.bilibili.com/video/BV1mK4y1f7DQ">电容作用</a></p><p>基本原理大致就这样，就是用激光发出去你的声信号，或者说把你的声信号加载到光信号上面。</p><p>我们再来康康<strong>接收端</strong></p><p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20210807174025.png" alt="太阳能板"></p><p>接收端是一个太阳能板（头一次见用这个当接受器的），太阳能板可以将光信号转化成电信号（相当于一个解码器），然后我们只需要放大这个信号就可以了。只是这个信号放大的倍数较大，建议用个成品，类似于音响之类的，或者你可以用个功放（全损音质警告）。</p><p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20210807174453.png"></p><p>然后就可以听到传输出去的声音了。</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>之前我把它做出来了，然后写文前感觉没啥用被我给拆了（淦）；</p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20210807175812.jpg" style="zoom:67%;"><p>如图所示，被我拆下来后的模块。蓝色的是功放，带个咪头的是麦克，黑的那个是激光管，全部被做成模块化</p><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><p>传输距离远，电路简单，造价便宜（一共花不了十块钱）</p><h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><p>干扰多，户外受天气影响较大，户内也受灯光影响，音质感人，不可调参</p><h4 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h4><p>如果使用的是有源麦克风，那么只需要做出来两个就可以实现远距离通话了，具体距离看你的激光源有多nb吧。原理上来讲是可以无线远的（因为卫星也有类似的通讯模式）。二十块钱做个对讲机，岂不美哉！</p><p>本次分享就到这了，以后有时间再(￣_,￣ )补写上我自己做的成品。</p>]]></content>
       
       
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>杀千刀的,电赛推迟了</title>
-      <link href="/posts/undefined/"/>
-      <url>/posts/undefined/</url>
-      
-        <content type="html"><![CDATA[<center>   </center><span id="more"></span><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>不知道该从何说起</p><p>本来我组都准备好奋战四天三夜的准备了，计划都定制好了，而我，打完电赛准备回家来着，票都买好了</p><p>结果，捏码的延迟了，本来根据清单我题目都猜出来一二了。。。。。。。。</p><div class="row">    <embed src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/ele/20210726102910400.pdf" width="100%" height="550" type="application/pdf"></div><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20210806112719.png" style="zoom:67%;"><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20210806112746.png" style="zoom: 50%;"><p>因为电赛只是推迟了，但是还是要进行比赛的所以我现在还不能把我的猜想说出来，但是可以给你们点提示，上面这两张图片里面含有关键词的属性。能不能提炼出来看你们的本事了</p><hr><p>后记：当时我猜测这个球可能是用来做救援球的，里面有一些传动装置（车），然后压电陶瓷片是放在内壁上进行循声。组委会会找个声源，然后装置自动循迹找到发声源。</p><hr><h3 id="正片"><a href="#正片" class="headerlink" title="正片"></a>正片</h3><h4 id="纪念一下我的手残"><a href="#纪念一下我的手残" class="headerlink" title="纪念一下我的手残"></a>纪念一下我的手残</h4><p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/IMG_20210804_162708.jpg" alt="手残1"></p><p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20210806113155.jpg" alt="手残2"></p><p>先纪念一下为了测试电机驱动，插线插到吐的我。。。。。。</p><h4 id="印刷电路板"><a href="#印刷电路板" class="headerlink" title="印刷电路板"></a>印刷电路板</h4><p>好在后来争分夺秒，印刷了电路板</p><p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20210806122001.jpg"></p><p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20210806113349.jpg" alt="电路板"></p><p><strong>省去了各种接插线材的麻烦</strong></p><p>按照惯例，点亮一下灯试试，顺便测试下电机</p><hr><p><strong>一切正常</strong></p><p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20210806113550.jpg" alt="点亮测试"></p><hr><h4 id="最后简单装下车"><a href="#最后简单装下车" class="headerlink" title="最后简单装下车"></a>最后简单装下车</h4><p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20210806122151.jpg" alt="车车，好快的车车"></p><p>此时这个小破车只是初步装配，后续还会不断完善（因为时间紧张，只能打绿板，ps：这绿板子真难看）</p><p><img src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/img/20210806122610.png" alt="pcb影印"></p><p>但是我画的板子还是很有艺术性和未来感的（😀）</p><h4 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h4><p>你在想peach</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 电子 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 电子 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -242,31 +167,6 @@
     
     
     <entry>
-      <title>小爷我做了个新片头</title>
-      <link href="/posts/undefined/"/>
-      <url>/posts/undefined/</url>
-      
-        <content type="html"><![CDATA[<iframe id="b" class="b video_pc" src="https://pic-1304932877.cos.ap-shanghai.myqcloud.com/%E8%A7%86%E9%A2%91/Eye_Opener_Logo_x264.mp4" frameborder="0" framespacing="0" allowfullscreen="true" style="position: middle;width=" 100%"="" height="600" controls="controls" autoplay="autoplay" quality="high"></video>></iframe><span id="more"></span>]]></content>
-      
-      
-      <categories>
-          
-          <category> 视频 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 视频 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>在openmv中画图</title>
       <link href="/posts/undefined/"/>
       <url>/posts/undefined/</url>
@@ -284,33 +184,6 @@
         <tags>
             
             <tag> openmv </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>柯西积分公式</title>
-      <link href="/posts/undefined/"/>
-      <url>/posts/undefined/</url>
-      
-        <content type="html"><![CDATA[<iframe id="b" class="b video_pc" src="https://xbeibeix.com/api/bilibili/biliplayer/?url=https://www.bilibili.com/video/BV1uA411j7jA?from=search&amp;seid=8534947394227717108" frameborder="0" framespacing="0" allowfullscreen="true" width="800" height="600" controls="controls" autoplay="autoplay" quality="high"></video>></iframe><span id="more"></span>]]></content>
-      
-      
-      <categories>
-          
-          <category> 数学 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 数学 </tag>
-            
-            <tag> 复变函数 </tag>
             
         </tags>
       
@@ -386,25 +259,6 @@
         <tags>
             
             <tag> bug </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>游戏名言</title>
-      <link href="/posts/undefined/"/>
-      <url>/posts/undefined/</url>
-      
-        <content type="html"><![CDATA[<center>  我们能从游戏中学到什么？<center>英雄联盟：你一个人靠谱能做的很好，但一群人靠谱才能走的更远<center>阴阳师：你永远不知道运气什么时候会砸向你<center>魔兽世界：能陪你走过十二年的，不止朋友，还有艾泽拉斯<span id="more"></span><p>贪吃蛇大作战：长大的我们渐渐失去了横冲直撞的勇气</p><p>纪念碑谷：面对困难多转几个弯，总会遇见柳暗花明</p><p>守望先锋：生活中并不缺少美，只是缺少发现美的眼睛，热火朝天的战场中也有靓丽的风景</p><p>愤怒的小鸟：失败时总有一群猪在嘲笑你，而他们不知道有再来一次</p><p>俄罗斯方块：犯下的错误会积累，而成功会消失</p><p>我的世界:一个游戏，一个人生，你的世界里你和你的朋友可以体验你梦寐以求的自由</p><p>TF2:如果你不懂得努力，你始终会失败，不要害怕强大的队友，而是永不放弃的去猎杀他;如果你没有朋友，陪伴着你一起战斗的队友，就是你真正的朋友;其实失败并不可怕，可怕的是你选择了放弃</p><p>半条命:你要懂得反抗，你不是弱者，你只是没有反抗</p><p>玩具熊的五夜后宫:不要害怕黑暗中的恐惧，只害怕你不敢去面对</p><p>泰拉瑞亚:虽然你什么都没，但是自己动手，你就能努力的生存下去</p><p>传说之下:只要你有决心，你就会知道决心能帮你实现很多东西</p><p>求生之路:只要和你的队友同心协力你们永远能战胜所有困难<br> </p></center><p></p><p><strong>我的几位有才的朋友又加了几条：</strong></p><p>黑暗之魂——菜就多练练</p><p>王者荣耀:你永远不知道孤儿是队友还是对面</p><p>原神:充3000和零氪没有什么区别</p><p>消逝的光芒：那天，我们在夕阳下奔跑……艹，夜魔</p><p>只狼:重复显示的“菜”显得你很呆</p><p>本文阅览次数 ：<span id="twikoo_visitors">0</span></p></center></center></center>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 游戏名言 </tag>
             
         </tags>
       
@@ -522,82 +376,6 @@
         <tags>
             
             <tag> stm32 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>过山车</title>
-      <link href="/posts/undefined/"/>
-      <url>/posts/undefined/</url>
-      
-        <content type="html"><![CDATA[<h1 id="狐言乱语"><a href="#狐言乱语" class="headerlink" title="狐言乱语"></a>狐言乱语</h1><p>RTkldTIwMENBNiV1MjAwQzk2JTIwRTUldTIwMEM4NSV1MjAwQz<br>g4JTIwRTUldTIwMEM5MSV1MjAwQ0EyJTIwRUYldTIwMENCQyV<br>1MjAwQzhDJTIwRTQldTIwMENCQiV1MjAwQzhBJTIwRTUldTIwM<br>ENBNCV1MjAwQ0E5JTIwRTkldTIwMEM5MiV1MjAwQzg4JTIwRT<br>QldTIwMENCOCV1MjAwQzhEJTIwRTYldTIwMEM4OCV1MjAwQ0Iz </p><p>RTUldTIwMENCRiV1MjAwQzgzJTIwRTYldTIwMEM4MyV1MjAwQzg1<br>JTIwRTQldTIwMENCOSV1MjAwQzlGJTIwRTUldTIwMENBNiV1MjAw<br>QzgyJTIwRTUldTIwMEM5MCV1MjAwQzhDJTIwRTgldTIwMENCRiV1<br>MjAwQzg3JTIwRTUldTIwMENCMSV1MjAwQ0IxJTIwRTgldTIwMENC<br>RCV1MjAwQ0E2JTIwRTQldTIwMENCOCV1MjAwQzgwJTIwRTgldTIw<br>MEM4OCV1MjAwQ0FDJTIwRUYldTIwMENCQyV1MjAwQzhDJTIwRT<br>UldTIwMEM4RSV1MjAwQzlGJTIwRTYldTIwMEM5QyV1MjAwQ0FDJT<br>IwRTQldTIwMENCQiV1MjAwQ0E1JTIwRTQldTIwMENCOCV1MjAwQ0<br>JBJTIwRTgldTIwMEM4NyV1MjAwQ0FBJTIwRTUldTIwMENCNyV1MjA<br>wQ0IxJTIwRTUldTIw<br>MEM5NSV1MjAwQzhBJTIwRUYldTIwMENCQyV1MjAwQzhDJTIwRTU<br>ldTIwMENCNyV1MjAwQ0IyJTIwRTcldTIwMENCQiV1MjAwQzhGJTIwR<br>TgldTIwMENCNiV1MjAwQzg1JTIwRTgldTIwMENCRCV1MjAwQ0E2JT<br>IwRTQldTIwMENCQSV1MjAwQzg2JTIwRUYldTIwMENCQyV1MjAwQz<br>hDJTIwRTYldTIwMENCMiV1MjAwQ0ExJTIwRTYldTIwMEM4MyV1MjA<br>wQ0IzJTIwRTUldTIwMEM4OCV1MjAwQ0IwJTIwRTUldTIwMEM4MyV<br>1MjAwQzhGJTIwRTUldTIwMEM5RCV1MjAwQzkwJTIwRTgldTIwMENC<br>RiV1MjAwQzg3JTIwRTUldTIwMENCMSV1MjAwQ0IxJTIwRTgldTIwME<br>NCRCV1MjAwQ0E2JTIwRTQldTIwMENCOCV1MjAwQzgwJTIwRTgldT<br>IwMEM4OCV1MjAwQ0FDJTIwRUYldTIwMENCQyV1MjAwQzhDJTIwR<br>TcldTIwMEM5QiV1MjAwQ0I0JTIwRTQldTIwMENCOCV1MjAwQzhBJTI<br>wRTcldTIwMEM5QiV1MjAwQ0I0JTIwRTQldTIwMENCOCV1MjAwQzhC<br>JTIwRTMldTIwMEM4MCV1MjAwQzgy</p><p><u>E9‌92‌88 E5‌88‌BA E6‌BF‌80 E3‌80‌82</u></p><hr><p>妈的，现在我自己都解不回来了QWQ</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> Fox saying </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>MISC-3</title>
-      <link href="/posts/63792a05/"/>
-      <url>/posts/63792a05/</url>
-      
-        <content type="html"><![CDATA[<p>今天做了个小题</p><p> 题目如下</p><hr><p>题目描述：菜狗找到了文件中的彩蛋很开心，给菜猫发了个表情包<br><img src="https://s1.ax1x.com/2020/10/08/00c8s0.gif" alt="00c8s0.gif"></p><hr><span id="more"></span><p>我们很容易就能看出，这个动图里面有一帧是带二维码的，于是乎，把这一帧给抽出来。s<br><img src="https://s1.ax1x.com/2020/10/08/00cQRs.png" alt="00cQRs.png"><br>我们明显看出这个二维码缺了三块 （定位角）。<br>于是乎，祭出了我的大ps。<br>从网络上找了一个定位角</p><hr><p><img src="https://s1.ax1x.com/2020/10/08/00cnIg.th.png" alt="00cnIg.th.png"><br>简单修一下之后p进去图片</p><hr><p><img src="https://s1.ax1x.com/2020/10/08/00cMGj.png" alt="00cMGj.png"></p><hr><p>  之后找个二维码工具扫描一下就行了，就可以获得flag了。</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> MISC </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>MISC-2</title>
-      <link href="/posts/147e1a93/"/>
-      <url>/posts/147e1a93/</url>
-      
-        <content type="html"><![CDATA[<hr><h3 id="题目如图所示"><a href="#题目如图所示" class="headerlink" title="题目如图所示"></a>题目如图所示</h3><img src="https://s1.ax1x.com/2020/10/08/00bXQK.png" alt="00bXQK.png" style="zoom: 67%;"><span id="more"></span><hr><h3 id="下载下来附件"><a href="#下载下来附件" class="headerlink" title="下载下来附件"></a>下载下来附件</h3><p><img src="https://s1.ax1x.com/2020/10/08/00q1S0.png" alt="00q1S0.png"></p><hr><h3 id="打开pdf，里面是一张图片"><a href="#打开pdf，里面是一张图片" class="headerlink" title="打开pdf，里面是一张图片"></a>打开pdf，里面是一张图片</h3><p><img src="https://s1.ax1x.com/2020/10/08/00qdYR.png" alt="00qdYR.png"></p><hr><p><strong>结合题目，图片下面什么都没有（滑稽）</strong><br><strong>就能猜出个大概了，应该是图片下面有一些小文章</strong><br><em><strong>but</strong></em>，<strong>pdf格式直接打开是不能编辑的</strong><br>这时候我们就要想几个<strong>特殊</strong>方案了</p><blockquote><ul><li>方案一</li><li>使用pdf转换器，将pdf文件转换为word文件</li></ul><ul><li>方案2</li><li>使用可以直接编辑pdf的编辑器（这个有很多，大多叫什么高级编辑器，很容易就能找到）</li></ul><ul><li>方案3</li><li>转换为文本格式打开（笑），找到flag并复制</li></ul></blockquote><p>  这三种方法都可以找到图片下面的小东西，之后复制flag提交上去就完成了！</p><hr>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> MISC </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>MISC-1</title>
-      <link href="/posts/8d774b29/"/>
-      <url>/posts/8d774b29/</url>
-      
-        <content type="html"><![CDATA[<center>misc最简单的一道题目,如图所示</center><hr><img src="https://s1.ax1x.com/2020/10/08/002kHf.png" alt="002kHf.png" style="zoom:67%;"><span id="more"></span><hr><p><strong>这道题主要是说明夺旗战的玩法，以及我们在做题时需要上传的答案的格式说明。</strong><br><strong>flag只要复制下来即可</strong></p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> MISC </tag>
             
         </tags>
       
