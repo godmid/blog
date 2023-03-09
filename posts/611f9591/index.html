@@ -1,0 +1,1671 @@
+<!DOCTYPE HTML>
+<html lang="en,zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="// 关键字">
+    <meta name="description" content="冥狐的技术小站">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>陀螺仪基本原理 | 冥狐的小站</title>
+    <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/css/my.css">
+
+    <script src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">冥狐的小站</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>Index</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>Tags</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>Categories</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>Archives</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>About</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>Contact</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>Friends</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="Search" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">冥狐的小站</div>
+        <div class="logo-desc">
+            
+            冥狐的技术小站
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			Index
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			Tags
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			Categories
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			Archives
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			About
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			Friends
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/godmid" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/godmid" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/medias/featureimages/9.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">陀螺仪基本原理</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%94%B5%E5%AD%90/">
+                                <span class="chip bg-color">电子</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E7%94%B5%E5%AD%90/" class="post-category">
+                                电子
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2021-07-27
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
+                    2021-12-14
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
+                    7.9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
+                    30 Min
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>Read Count:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <center>   </center>
+
+
+<span id="more"></span>
+
+<p>本帖翻译自 <a target="_blank" rel="noopener" href="http://www.starlino.com/imu_guide.html">IMU（加速度计和陀螺仪设备）在嵌入式应用中使用的指南。</a><br>这篇文章主要介绍加速度计和陀螺仪的数学模型和基本算法，以及如何融合这两者，侧重算法、思想的讨论</p>
+<p>介绍<br>本指南旨在向兴趣者介绍惯性MEMS（微机电系统）传感器，特别是加速度计和陀螺仪以及其他整合IMU（ <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Inertial_measurement_unit">惯性测量单元</a>）设备。<br><img src="http://image.geek-workshop.com/forum/201208/22/163854b9769h9p7kvq7omh.jpg"></p>
+<p>2012-8-22 16:38 上传</p>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhuanghe_xing/article/details/forum.php?mod=attachment&amp;aid=NjQxM3xhNDgxYjAxZnwxMzQ2NTg2MjYwfDMxOTV8MTY5NQ==&amp;nothumb=yes"><strong>下载附件</strong>(16.48 KB)</a></p>
+<p>IMU单元例子：上图中MCU顶端的 <a target="_blank" rel="noopener" href="http://www.starlino.com/store/acc-gyro">ACC Gyro 6DOF</a>，名为 <a target="_blank" rel="noopener" href="http://www.gadgetgangster.com/find-a-project/56?projectnum=240">USBThumb</a>，支持USB/串口通信</p>
+<p>在这篇文章中我将概括这么几个基本并且重要的话题：<br>- 加速度计（accelerometer）检测什么<br>- 陀螺仪（gyroscope，也称作 gyro）检测什么<br>- 如何将传感器ADC读取的数据转换为物理单位（加速度传感器的单位是g，陀螺仪的单位是 度/秒）<br>- 如何结合加速度传感器和陀螺仪的数据以得到设备和地平面之间的倾角的准确信息<br>在整篇文章中我尽量将数学运算降低到最少。如果你知道什么是正弦、余弦、正切函数，那无论你的项目使用哪种平台你应该都会明白和运用这篇文章中的思想，这些平台如Arduino、Propeller、Basic Stamp、Ateml芯片、PIC芯片等等。总有些人认为使用IMU单元需要复杂的数学运算（复杂的FIR或IIR滤波，如卡尔曼滤波，Parks-McClellan滤波等）。你如果研究这些会得到很棒且很复杂的结果。我解释事情的方式，只需要基本的数学。我非常坚信简单的原则。我认为一个简单的系统更容易操作和监控，另外许多嵌入式设备并不具备能力和资源去实现需要进行矩阵运算的复杂算法。<br>我会用我设计的一个新IMU模块—— <a target="_blank" rel="noopener" href="http://www.starlino.com/store/acc-gyro">Acc_Gyro Accelerometer + Gyro IMU</a>作为例子。在下面的例子中我们会使用这个设备的参数。用这个模块作为介绍非常合适，因为它由3个设备组成：<br>- LIS331AL ( <a target="_blank" rel="noopener" href="http://www.starlino.com/wp-content/uploads/data/acc_gyro/LIS331AL.pdf">datasheet</a>) – 3轴 2G 模拟加速度计<br>- LPR550AL ( <a target="_blank" rel="noopener" href="http://www.starlino.com/wp-content/uploads/data/acc_gyro/LPR550AL.pdf">datasheet</a>) – 双轴（俯仰、翻滚） 500°/s 加速度传感器<br>- LY550ALH ( <a target="_blank" rel="noopener" href="http://www.starlino.com/wp-content/uploads/data/acc_gyro/LY550ALH.pdf">datasheet</a>) –单轴（偏航）陀螺仪 最后这个设备在这篇介绍中不使用，不过他在 <a target="_blank" rel="noopener" href="http://www.starlino.com/dcm_tutorial.html">DCM Matrix implementation</a>中有重要作用<br>它们一起组成了一个6自由度的惯性测量单元。这是个花哨的名字！然而，在花哨的名字后面是个非常有用的设备组合，接下来我们会详细介绍之。<br>第一部分 加速度计<br>要了解这个模块我们先从加速度计开始。当我们在想象一个加速度计的时候我们可以把它想作一个圆球在一个方盒子中。你可能会把它想作一个饼干或者甜圈，但我就把它当做一个球好了：<br><img src="http://image.geek-workshop.com/forum/201208/22/163855d7e99tne77u81b12.png"></p>
+<p>2012-8-22 16:38 上传</p>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhuanghe_xing/article/details/forum.php?mod=attachment&amp;aid=NjQxNHw0ZDkxOTU3NXwxMzQ2NTg2MjYwfDMxOTV8MTY5NQ==&amp;nothumb=yes"><strong>下载附件</strong>(15.85 KB)</a></p>
+<p>我们假定这个盒子不在重力场中或者其他任何会影响球的位置的场中，球处于盒子的正中央。你可以想象盒子在外太空中，远离任何天体，如果很难想象，那就当做盒子在航天飞机中，一切东西都处于无重力状态。在上面的图中你可以看到我们给每个轴分配了一对墙（我们移除了Y+以此来观察里面的情况）。设想每面墙都能感测压力。如果我们突然把盒子向左移动（加速度为1g=9.8m/s^2），那么球会撞上X-墙。然后我们检测球撞击墙面产生的压力，X轴输出值为-1g。<br><img src="http://image.geek-workshop.com/forum/201208/22/163856r6orns2rocpzz5sp.png"></p>
+<p>2012-8-22 16:38 上传</p>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhuanghe_xing/article/details/forum.php?mod=attachment&amp;aid=NjQxNXwxM2U2NjRkZXwxMzQ2NTg2MjYwfDMxOTV8MTY5NQ==&amp;nothumb=yes"><strong>下载附件</strong>(19.23 KB)</a></p>
+<p>请注意加速度计检测到得力的方向与它本身加速度的方向是相反的。这种力量通常被称为 <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Fictitious_force">惯性力或假想力</a> 。在这个模型中你你应该学到加速度计是通过间接测量力对一个墙面的作用来测量加速度的，在实际应用中，可能通过弹簧等装置来测量力。这个力可以是加速度引起的，但在下面的例子中，我们会发现它不一定是加速度引起的。<br>如果我们把模型放在地球上，球会落在Z-墙面上并对其施加一个1g的力，见下图：<br><img src="http://image.geek-workshop.com/forum/201208/22/163856lxjiqd8xlvzh775b.png"></p>
+<p>2012-8-22 16:38 上传</p>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhuanghe_xing/article/details/forum.php?mod=attachment&amp;aid=NjQxNnxjNGIzNDM1YnwxMzQ2NTg2MjYwfDMxOTV8MTY5NQ==&amp;nothumb=yes"><strong>下载附件</strong>(19.54 KB)</a></p>
+<p>在这种情况下盒子没有移动但我们任然读取到Z轴有-1g的值。球在墙壁上施加的压力是由引力造成的。在理论上，它可以是不同类型的力量 - 例如，你可以想象我们的球是铁质的，将一个磁铁放在盒子旁边那球就会撞上另一面墙。引用这个例子只是为了说明加速度计的本质是检测力而非加速度。只是加速度所引起的惯性力正好能被加速度计的检测装置所捕获。<br>虽然这个模型并非一个MEMS传感器的真实构造，但它用来解决与加速度计相关的问题相当有效。实际上有些类似传感器中有金属小球，它们称作倾角开关，但是它们的功能更弱，只能检测设备是否在一定程度内倾斜，却不能得到倾斜的程度。<br>到目前为止，我们已经分析了单轴的加速度计输出，这是使用单轴加速度计所能得到的。三轴加速度计的真正价值在于它们能够检测全部三个轴的惯性力。让我们回到盒子模型，并将盒子向右旋转45度。现在球会与两个面接触：Z-和X-，见下图：<br><img src="http://image.geek-workshop.com/forum/201208/22/163857bferffolflo9ly9l.png"></p>
+<p>2012-8-22 16:38 上传</p>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhuanghe_xing/article/details/forum.php?mod=attachment&amp;aid=NjQxN3w1ZGVjODFhOXwxMzQ2NTg2MjYwfDMxOTV8MTY5NQ==&amp;nothumb=yes"><strong>下载附件</strong>(34.03 KB)</a></p>
+<p>0.71g这个值是不是任意的，它们实际上是1/2的平方根的近似值。我们介绍加速度计的下一个模型时这一点会更清楚。<br>在上一个模型中我们引入了重力并旋转了盒子。在最后的两个例子中我们分析了盒子在两种情况下的输出值，力矢量保持不变。虽然这有助于理解加速度计是怎么和外部力相互作用的，但如果我们将坐标系换为加速度的三个轴并想象矢量力在周围旋转，这会更方便计算。<br><img src="http://image.geek-workshop.com/forum/201208/22/163858sssxmnssijjjczf3.png"></p>
+<p>2012-8-22 16:38 上传</p>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhuanghe_xing/article/details/forum.php?mod=attachment&amp;aid=NjQxOHxjNDNlNzY5Y3wxMzQ2NTg2MjYwfDMxOTV8MTY5NQ==&amp;nothumb=yes"><strong>下载附件</strong>(7.19 KB)</a></p>
+<p>请看看在上面的模型，我保留了轴的颜色，以便你的思维能更好的从上一个模型转到新的模型中。想象新模型中每个轴都分别垂直于原模型中各自的墙面。矢量R是加速度计所检测的矢量（它可能是重力或上面例子中惯性力的合成）。RX，RY，RZ是矢量R在X，Y，Z上的投影。请注意下列关系：<br>，R ^ 2 = RX ^ 2 + RY ^ 2 + RZ ^ 2（ 公式1）<br>此公式等价于 <a target="_blank" rel="noopener" href="http://demonstrations.wolfram.com/PythagoreanTheorem3D/">三维空间勾股定理</a>。<br>还记得我刚才说的1/2的平方根0.71不是个随机值吧。如果你把它们代回上式，回顾一下重力加速度是1g，那我们就能验证：<br>1 ^ 2 =（SQRT（1/2））^ 2 + 0 ^ 2 +（SQRT（1/2））^ 2<br>在 公式1中简单的取代： R=1, Rx = -SQRT(1/2), Ry = 0 , Rz = -SQRT(1/2)<br>经过一大段的理论序言后，我们和实际的加速度计很靠近了。RX，RY，RZ值是实际中加速度计输出的线性相关值，你可以用它们进行各种计算。<br>在我们运用它之前我们先讨论一点获取加速度计数据的方法。大多数加速度计可归为两类：数字和模拟。数字加速度计可通过I2C，SPI或USART方式获取信息，而模拟加速度计的输出是一个在预定范围内的电压值，你需要用ADC（模拟量转数字量）模块将其转换为数字值。我将不会详细介绍ADC是怎么工作的，部分原因是这是个很广的话题，另一个原因是不同平台的ADC都会有差别。有些MCU具有内置ADC模块，而有些则需要外部电路进行ADC转换。不管使用什么类型的ADC模块，你都会得到一个在一定范围内的数值。例如一个10位ADC模块的输出值范围在0 .. 1023间，请注意，1023 = 2 ^ 10 -1。一个12位ADC模块的输出值范围在0 .. 4095内，注意，4095 = 2 ^ 12-1。<br>我们继续，先考虑下一个简单的例子，假设我们从10位ADC模块得到了以下的三个轴的数据：<br>AdcRx = 586<br>AdcRy = 630<br>AdcRz = 561<br>每个ADC模块都有一个参考电压，假设在我们的例子中，它是3.3V。要将一个10位的ADC值转成电压值，我们使用下列公式：<br>VoltsRx = AdcRx * VREF / 1023<br>小注：8位ADC的最大值是255 = 2 ^ 8 -1，12位ADC最大值是4095 = 2 ^ 12 -1。<br>将3个轴的值代入上式，得到：<br>VoltsRx = 586 * 3.3 / 1023 =～1.89V（结果取两位小数）<br>VoltsRy = 630 * 3.3 / 1023 =～2.03V<br>VoltsRz = 561 * 3.3 / 1023 =～1.81V<br>每个加速度计都有一个零加速度的电压值，你可以在它的说明书中找到，这个电压值对应于加速度为0g。通过计算相对0g电压的偏移量我们可以得到一个有符号的电压值。比方说，0g电压值 VzeroG= 1.65V，通过下面的方式可以得到相对0g电压的偏移量:<br>DeltaVoltsRx = 1.89V - 1.65V = 0.24V<br>DeltaVoltsRy = 2.03V - 1.65V = 0.38V<br>DeltaVoltsRz = 1.81V - 1.65V = 0.16V<br>现在我们得到了加速度计的电压值，但它的单位还不是g（9.8m/s^2），最后的转换，我们还需要引入加速度计的灵敏度（Sensitivity），单位通常是 mV/g。比方说，加速度计的灵敏度 Sensitivity= 478.5mV / g = 0.4785V /g。灵敏度值可以在加速度计说明书中找到。要获得最后的单位为g的加速度，我们使用下列公式计算：<br>RX = DeltaVoltsRx /Sensitivity<br>RX = 0.24V / 0.4785V / G =～0.5g<br>RY = 0.38V / 0.4785V / G =～0.79g<br>RZ = 0.16V / 0.4785V / G =～0.33g<br>当然，我们可以把所有的步骤全部放在一个式子里，但我想通过介绍每一个步骤以便让你了解怎么读取一个ADC值并将其转换为单位为g的矢量力的分量。<br>Rx = (AdcRx * Vref / 1023 – VzeroG) / Sensitivity (公式2)<br>Ry = (AdcRy * Vref / 1023 – VzeroG) / Sensitivity<br>Rz = (AdcRz * Vref / 1023 – VzeroG) / Sensitivity<br>现在我们得到了惯性力矢量的三个分量，如果设备除了重力外不受任何外力影响，那我们就可以认为这个方向就是重力矢量的方向。如果你想计算设备相对于地面的倾角，可以计算这个矢量和Z轴之间的夹角。如果你对每个轴的倾角都感兴趣，你可以把这个结果分为两个分量：X轴、Y轴倾角，这可以通过计算重力矢量和X、Y轴的夹角得到。计算这些角度比你想象的简单，现在我们已经算出了Rx，Ry，Rz的值，让我们回到我们的上一个加速度模型，再加一些标注上去：<br><img src="http://image.geek-workshop.com/forum/201208/22/1638594bjbb147i1lqb7cz.png"></p>
+<p>2012-8-22 16:38 上传</p>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhuanghe_xing/article/details/forum.php?mod=attachment&amp;aid=NjQxOXw1YTRiMGIyYnwxMzQ2NTg2MjYwfDMxOTV8MTY5NQ==&amp;nothumb=yes"><strong>下载附件</strong>(9.9 KB)</a></p>
+<p>我们感兴趣的角度是向量R和X，Y，Z轴之间的夹角，那就令这些角度为Axr，Ayr，Azr。观察由R和Rx组成的直角三角形：<br>cos(Axr) = Rx / R , 类似的：<br>cos(Ayr) = Ry / R<br>cos(Azr) = Rz / R<br>从 公式1我们可以推导出 R = SQRT( Rx^2 + Ry^2 + Rz^2)<br>通过arccos()函数（cos()的反函数）我们可以计算出所需的角度：<br>Axr = arccos(Rx/R)<br>Ayr = arccos(Ry/R)<br>Azr = arccos(Rz/R)<br>我们花了大段的篇幅来解释加速度计模型，最后所要的只是以上这几个公式。根据你的应用场合，你可能会用到我们推导出来的几个过渡公式。我们接下来要介绍陀螺仪模块，并向大家介绍怎么融合加速度计和陀螺仪的数据以得到更精确的倾角值。<br>但在此之前，我们再介绍几个很常用的公式：<br>cosX = cos(Axr) = Rx / R<br>cosY = cos(Ayr) = Ry / R<br>cosZ = cos(Azr) = Rz / R<br>这三个公式通常称作 <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Direction_cosine">方向余弦</a> ，它主要表达了单位向量（长度为1的向量）和R向量具有相同的方向。你可以很容易地验证：<br>SQRT（cosX ^ 2 + COSY ^ 2 + cosZ ^ 2）= 1<br>这是个很好的性质，因为它避免了我们一直检测R向量的模（长度）。通常如果我们只是对惯性力的方向感兴趣，那标准化模长以简化其他计算是个明智的选择。<br>第二部分陀螺仪<br>对于陀螺仪我们将不会像加速度计一样介绍它的等价盒子模型，而是直接跳到加速度计的第二个模型，通过这个模型我们会向大家介绍陀螺仪是怎么工作的。<br><img src="http://image.geek-workshop.com/forum/201208/22/163859eepfepkeh1glt1lw.png"></p>
+<p>2012-8-22 16:38 上传</p>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhuanghe_xing/article/details/forum.php?mod=attachment&amp;aid=NjQyMHxlMzYwMGE3ZHwxMzQ2NTg2MjYwfDMxOTV8MTY5NQ==&amp;nothumb=yes"><strong>下载附件</strong>(12.55 KB)</a></p>
+<p>陀螺仪的每个通道检测一个轴的旋转。例如，一个2轴陀螺仪检测绕X和Y轴的旋转。为了用数字来表达这些旋转，我们先引进一些符号。首先我们定义：<br>Rxz – 惯性力矢量R在XZ平面上的投影<br>Ryz – 惯性力矢量R在YZ平面的上投影<br>在由Rxz和Rz组成的直角三角形中，运用勾股定理可得：<br>Rxz^2 = Rx^2 + Rz^2 ，同样：<br>Ryz^2 = Ry^2 + Rz^2<br>同时注意：<br>R^2 = Rxz^2 + Ry^2 ，这个公式可以 公式1和上面的公式推导出来，也可由R和Ryz所组成的直角三角形推导出来<br>R ^ 2 = Ryz ^ 2 + RX ^ 2<br>在这篇文章中我们不会用到这些公式，但知道模型中的那些数值间的关系有助于理解。<br>相反，我们按如下方法定义Z轴和Rxz、Ryz向量所成的夹角：<br>AXZ - Rxz（矢量R在XZ平面的投影）和Z轴所成的夹角<br>AYZ - Ryz（矢量R在YZ平面的投影）和Z轴所成夹角<br>现在我们离陀螺仪要测量的东西又近了一步。陀螺仪测量上面定义的角度的变化率。换句话说，它会输出一个与上面这些角度变化率线性相关的值。为了解释这一点，我们先假设在t0时刻，我们已测得绕Y轴旋转的角度（也就是Axz），定义为Axz0，之后在t1时刻我们再次测量这个角度，得到Axz1。角度变化率按下面方法计算：<br>RateAxz = (Axz1 – Axz0) / (t1 – t0).<br>如果用度来表示角度，秒来表示时间，那这个值的单位就是 度/秒。这就是陀螺仪检测的东西。<br>在实际运用中，陀螺仪一般都不会直接给你一个单位为度/秒的值（除非它是个特殊的数字陀螺仪）。就像加速度计一样，你会得到一个ADC值并且要用类似 公式2的式子将其转换成单位为 度/秒的值。让我们来介绍陀螺仪输出值转换中的ADC部分（假设使用10位ADC模块，如果是8位ADC，用1023代替255，如果是12为ADC用4095代替1023）。<br>RateAxz = (AdcGyroXZ * Vref / 1023 – VzeroRate) / Sensitivity <strong>公式3</strong><br>RateAyz = (AdcGyroYZ * Vref / 1023 – VzeroRate) / Sensitivity<br>AdcGyroXZ，AdcGyroYZ - 这两个值由ADC读取，它们分别代表矢量R的投影在XZ和YZ平面内里的转角，也可等价的说，旋转可分解为单独绕Y和X轴的运动。<br>Vref – ADC的参考电压，上例中我们使用3.3V<br>VzeroRate – 是零变化率电压，换句话说它是陀螺仪不受任何转动影响时的输出值，对 <a target="_blank" rel="noopener" href="http://gadgetgangster.com/find-a-project/56?projectnum=213">Acc Gyro</a>板来说，可以认为是1.23V（此值通常可以在说明书中找到——但千万别相信这个值，因为大多数的陀螺仪在焊接后会有一定的偏差，所以可以使用电压计测量每个通道的输出值，通常这个值在焊接后就不会改变，如果有跳动，在设备使用前写一个校准程序对其进行测量，用户应当在设备启动的时候保持设备静止以进行校准）。<br>Sensitivity –陀螺仪的灵敏度，单位mV/(deg/s)，通常写作mV/deg/s,它的意思就是如果旋转速度增加1°/s,陀螺仪的输出就会增加多少mV。 <a target="_blank" rel="noopener" href="http://gadgetgangster.com/find-a-project/56?projectnum=213">Acc_Gyro</a>板的灵敏度值是2mV/deg/s或0.002V/deg/s<br>让我们举个例子，假设我们的ADC模块返回以下值：<br>AdcGyroXZ = 571<br>AdcGyroXZ = 323<br>用上面的公式，在代入 <a target="_blank" rel="noopener" href="http://gadgetgangster.com/find-a-project/56?projectnum=213">Acc Gyro</a>板的参数，可得：<br>RateAxz = (571 * 3.3V / 1023 – 1.23V) / ( 0.002V/deg/s) =~ 306 deg/s<br>RateAyz = (323 * 3.3V / 1023 – 1.23V) / ( 0.002V/deg/s) =~ -94 deg/s<br>换句话说设备绕Y轴（也可以说在XZ平面内）以306°/s速度和绕X轴（或者说YZ平面内）以-94°/s的速度旋转。请注意，负号表示该设备朝着反方向旋转。按照惯例，一个方向的旋转是正值。一份好的陀螺仪说明书会告诉你哪个方向是正的，否则你就要自己测试出哪个旋转方向会使得输出脚电压增加。最好使用示波器进行测试，因为一旦你停止了旋转，电压就会掉回零速率水平。如果你使用的是万用表，你得保持一定的旋转速度几秒钟并同时比较电压值和零速率电压值。如果值大于零速率电压值那说明这个旋转方向是正向。<br>第三部分 将它们综合起来。融合加速度计和陀螺仪的数据。<br>如果你在阅读这篇文章你可能已经有了或准备购买一个IMU设备，或者你准备用独立的加速度计和陀螺仪搭建一个。<br>注：具体的代码实现和算法测试，请阅读这篇文章：<br><a target="_blank" rel="noopener" href="http://starlino.com/imu_kalman_arduino.html">http://starlino.com/imu_kalman_arduino.html</a></p>
+<p>在使用整合了加速度计和陀螺仪的IMU设备时，首先要做的就是统一它们的坐标系。最简单的办法就是将加速度计作为参考坐标系。大多数的加速度计技术说明书都会指出对应于物理芯片或设备的XZY轴方向。例如，下面就是Acc Gyro板的说明书中给出的XYZ轴方向：<br><img src="http://image.geek-workshop.com/forum/201208/22/16390056u825bbb2j10x80.png"></p>
+<p>2012-8-22 16:39 上传</p>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhuanghe_xing/article/details/forum.php?mod=attachment&amp;aid=NjQyMXxmZDNmNmQ3MnwxMzQ2NTg2MjYwfDMxOTV8MTY5NQ==&amp;nothumb=yes"><strong>下载附件</strong>(35.18 KB)</a></p>
+<p>接下来的步骤是：<br>- 确定陀螺仪的输出对应到上述讨论的RateAxz，RateAyz值。<br>- 根据陀螺仪和加速度计的位置决定是否要反转输出值<br>不要设想陀螺仪陀的输出有XY，它会适应加速度计坐标系里的任何轴，尽管这个输出是IMU模块的一部分。最好的办法就是测试。<br>接下来的示例用来确定哪个陀螺仪的输出对应RateAxz。<br>- 首先将设备保持水平。加速度计的XY轴输出会是零加速度电压（ <a target="_blank" rel="noopener" href="http://gadgetgangster.com/find-a-project/56?projectnum=213">Acc Gyro</a>板的值是1.65V）<br>- 接下来将设备绕Y轴旋转，换句话说就是将设备在XZ平面内旋转，所以X、Z的加速度输出值会变化而Y轴保持不变。<br>-当以匀速旋转设备的时候，注意陀螺仪的哪个通道输出值变化了，其他输出应该保持不变。<br>- 在陀螺仪绕Y轴旋转（在XZ平面内旋转）的时候输出值变化的就是AdcGyroXZ，用于计算RateAxz<br>-最后一步，确认旋转的方向是否和我们的模型对应，因为陀螺仪和加速度的位置关系，有时候你可能要把RateAxz值反向<br>-重复上面的测试，将设备绕Y轴旋转，这次查看加速度计的X轴输出（也就是AdcRx）。如果AdcRx增大（从水平位置开始旋转的第一个90°），那AdcGyroXZ应当减小。这是因为我们观察的是重力矢量，当设备朝一个方向旋转时矢量会朝相反的方向旋转（相对坐标系运动）。所以，如果你不想反转RateAxz，你可以在 <strong>公式3</strong>中引入正负号来解决这个问题：<br>RateAxz = InvertAxz * (AdcGyroXZ * Vref / 1023 – VzeroRate) / Sensitivity ,其中InvertAxz= 1 或-1<br>同样的方法可以用来测试RateAyz，将设备绕X轴旋转，你就能测出陀螺仪的哪个输出对应于RateAyz，以及它是否需要反转。一旦你确定了InvertAyz，你就能可以用下面的公式来计算RateAyz：<br>RateAyz = InvertAyz * (AdcGyroYZ * Vref / 1023 – VzeroRate) / Sensitivity<br>如果对Acc Gyro板进行这些测试，你会得到下面的这些结果：<br>- RateAxz的输出管脚是GX4，InvertAxz = 1<br>- RateAyz输出管脚是GY4，InvertAyz = 1<br>从现在开始我们认为你已经设置好了IMU模块并能计算出正确的Axr，Ayr，Azr值（在第一部分加速度计中定义）以及RateAyz，RateAyz（在第二部分陀螺仪中）。下一步，我们分析这些值之间的关系并得到更准确的设备和地平面之间的倾角。<br>你可能会问自己一个问题，如果加速度计已经告诉我们Axr，Ayr，Azr的倾角，为什么还要费事去得到陀螺仪的数据？答案很简单：加速度计的数据不是100%准确的。有几个原因，还记加速度计测量的是惯性力，这个力可以由重力引起（理想情况只受重力影响），当也可能由设备的加速度（运动）引起。因此，就算加速度计处于一个相对比较平稳的状态，它对一般的震动和机械噪声很敏感。这就是为什么大部分的IMU系统都需要陀螺仪来使加速度计的输出更平滑。但是怎么办到这点呢？陀螺仪不受噪声影响吗？<br>陀螺仪也会有噪声，但由于它检测的是旋转，因此对线性机械运动没那么敏感，不过陀螺仪有另外一种问题，比如漂移（当选择停止的时候电压不会回到零速率电压）。然而，通过计算加速度计和陀螺仪的平均值我们能得到一个相对更准确的当前设备的倾角值，这比单独使用加速度计更好。<br>接下来的步骤我会介绍一种算法，算法受卡尔曼滤波中的一些思想启发，但是它更简单并且更容易在嵌入式设备中实现。在此之前，让我们先看看我们需要算法计算什么值。所要算的就是重力矢量R=[Rx,Ry,Rz]，它可由其他值推导出来，如Axr，Ayr，Azr或者cosX，cosY，cosZ，由这些值我们能得到设备相对地平面的倾角值，这些关系我们在第一部分已经讨论过。有人可能会说-根据第一部分的 公式2我们不是已经得到Rx，Ry，Rz的值了吗？是的，但是记住，这些值只是由加速度计数据推导出来的，如果你直接将它们用于你的程序你会得到难以忍受的噪声。为了避免进一步的混乱，我们重新定义加速度计的测量值：<br>Racc – 是由加速度计测量到得惯性力矢量，它可分解为下面的分量（在XYZ轴上的投影）：<br>RxAcc = (AdcRx * Vref / 1023 – VzeroG) / Sensitivity<br>RyAcc = (AdcRy * Vref / 1023 – VzeroG) / Sensitivity<br>RzAcc = (AdcRz * Vref / 1023 – VzeroG) / Sensitivity<br>现在我们得到了一组只来自于加速度计ADC的值。我们把这组数据叫做“vector”，并使用下面的符号：<br>Racc = [RxAcc,RyAcc,RzAcc]<br>因为这些Racc的分量可由加速度计数据得到，我们可以把它当做算法的输入。<br>请注意Racc测量的是重力，如果你得到的矢量长度约等于1g那么你就是正确的：<br>|Racc| = SQRT(RxAcc^2 +RyAcc^2 + RzAcc^2),<br>但是请确定把矢量转换成下面的矢量非常重要：<br>Racc(normalized) = [RxAcc/|Racc| , RyAcc/|Racc| , RzAcc/|Racc|].<br>这可以确保标准化Racc始终是1。<br>接来下我们引进一个新的向量：<br>Rest = [RxEst,RyEst,RzEst]<br>这就是算法的输出值，它经过陀螺仪数据的修正和基于上一次估算的值。<br>这是算法所做的事：<br>-加速度计告诉我们：“你现在的位置是Racc”<br>我们回答：“谢谢，但让我确认一下”<br>-然后根据陀螺仪的数据和上一次的Rest值修正这个值并输出新的估算值Rest。<br>-我们认为Rest是当前设备姿态的“最佳值”。<br>让我们看看它是怎么实现的。<br>数列的开始，我们先认为加速度值正确并赋值：<br>Rest(0) = Racc(0)<br>Rest和Racc是向量，所以上面的式子可以用3个简单的式子代替，注意别重复了：<br>RxEst（0）= RxAcc（0）<br>RyEst（0）= RyAcc（0）<br>RzEst（0）= RzAcc（0）<br>接下来我们在每个等时间间隔T秒做一次测量，得到新的测量值，并定义为Racc（1），Racc（2），Racc（3）等等。同时，在每个时间间隔我们也计算出新的估算值Rest（1）,Rest（2），Rest（3），等等。<br>假设我们在第n步。我们有两列已知的值可以用：<br>Rest(n-1) – 前一个估算值，Rest(0) = Racc(0)<br>Racc(n) – 当前加速度计测量值<br>在计算Rest（n）前，我们先引进一个新的值，它可由陀螺仪和前一个估算值得到。<br>叫做Rgyro，同样它是个矢量并由3个分量组成：<br>Rgyro = [RxGyro,RyGyro,RzGyro]<br>我们分别计算这个矢量的分量，从RxGyro开始。<br><img src="http://image.geek-workshop.com/forum/201208/22/163901qa8wfgaj8z8ca8kk.png"></p>
+<p>2012-8-22 16:39 上传</p>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/zhuanghe_xing/article/details/forum.php?mod=attachment&amp;aid=NjQyMnwxZDk2MjFlNXwxMzQ2NTg2MjYwfDMxOTV8MTY5NQ==&amp;nothumb=yes"><strong>下载附件</strong>(12.55 KB)</a></p>
+<p>首先观察陀螺仪模型中下面的关系，根据由Rz和Rxz组成的直角三角形我们能推出：<br>tan(Axz) = Rx/Rz =&gt; Axz = atan2(Rx,Rz)<br>你可能从未用过atan2这个函数，它和atan类似，但atan返回值范围是（-PI/2,PI/2），atan2返回值范围是（-PI，PI），并且他有两个参数。它能将Rx，Rz值转换成360°（-PI，PI）内的角度。更多信息请阅读 <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Atan2">atan2</a>.<br>所以，知道了RxEst（n-1）和RzEst（n-1）我们发现：<br>Axz(n-1) = atan2( RxEst(n-1) , RzEst(n-1) ).<br>记住，陀螺仪测量的是Axz角度变化率，因此，我们可以按如下方法估算新的角度Axz（n）：<br>Axz(n) = Axz(n-1) + RateAxz(n) * T<br>请记住，RateAxz可由陀螺仪ADC读取得到。通过使用平均转速可由得到一个更准确的公式：<br>RateAxzAvg =（RateAxz（N）+ RateAxz（N-1））/ 2<br>Axz(n) = Axz(n-1) + RateAxzAvg * T<br>同理可得：<br>Ayz(n) = Ayz(n-1) + RateAyz(n) * T<br>好了，现在我们有了Axz（n），Ayz（n）。现在我们如何推导出RxGyro/RyGyro?根据 公式1我们可以把Rgyro长度写成下式：<br>| Rgyro | = SQRT（RxGyro ^ 2 + RyGyro ^ 2 + RzGyro ^ 2）<br>同时，因为我们已经将Racc标准化，我们可以认为它的长度是1并且旋转后保持不变，所以写成下面的方式相对比较安全：<br>| Rgyro | = 1<br>我们暂时采用更短的符号进行下面的计算：<br>x =RxGyro , y=RyGyro, z=RzGyro<br>根据上面的关系可得：<br>x = x / 1 = x / SQRT(x^2+y^2+z^2)<br>分子分母同除以SQRT（X ^ 2 + Z ^ 2）<br>x = ( x / SQRT(x^2 + z^2) ) / SQRT( (x^2 + y^2 + z^2) / (x^2 + z^2) )<br>注意x / SQRT(x^2 + z^2) = sin(Axz), 所以:<br>x = sin(Axz) / SQRT (1 + y^2 / (x^2 + z^2) )<br>将SQRT内部分式的分子分母同乘以z^2<br>x = sin(Axz) / SQRT (1 + y^2 * z ^2 / (z^2 * (x^2 + z^2)) )<br><strong>注意 z / SQRT(x^2 + z^2) = cos(Axz)， y / z = tan(Ayz), 所以最后可得:</strong><br>x = sin(Axz) / SQRT (1 + cos(Axz)^2 * tan(Ayz)^2 )<br>替换成原来的符号可得：<br>RxGyro = sin(Axz(n)) / SQRT (1 + cos(Axz(n))^2 * tan(Ayz(n))^2 )<br>同理可得：<br>RyGyro = sin(Ayz(n)) / SQRT (1 + cos(Ayz(n))^2 * tan(Axz(n))^2 )<br>提示：这个公式还可以更进一步简化。分式两边同除以sin（axz（你））可得：<br>RxGyro = 1 / SQRT (1/ sin(Axz(n))^2 + cos(Axz(n))^2 / sin(Axz(n))^2 * tan(Ayz(n))^2 )<br>RxGyro = 1 / SQRT (1/ sin(Axz(n))^2 + cot(Axz(n))^2 * sin(Ayz(n))^2 / cos(Ayz(n))^2 )<br>现在加减  cos(Axz(n))^2/sin(Axz(n))^2  = cot(Axz(n))^2<br>RxGyro = 1 / SQRT (1/ sin(Axz(n))^2 - cos(Axz(n))^2/sin(Axz(n))^2  + cot(Axz(n))^2 * sin(Ayz(n))^2 / cos(Ayz(n))^2 + cot(Axz(n))^2 )<br>综合条件1、2和3、4可得：<br>RxGyro = 1 / SQRT (1 +  cot(Axz(n))^2 * sec(Ayz(n))^2 ),   其中 cot(x) = 1 / tan(x) ， sec(x) = 1 / cos(x)<br>这个公式只用了2个三角函数并且计算量更低。如果你有Mathematica程序，通过使用 FullSimplify [Sin[A]^2/ ( 1 + Cos[A]^2 * Tan[B]^2)]你可以验证这个公式。</p>
+<p>现在我们发现：<br>RzGyro = Sign(RzGyro)*SQRT(1 – RxGyro^2 – RyGyro^2).<br>其中，当 RzGyro&gt;=0时，Sign(RzGyro) = 1 , 当 RzGyro&lt;0时，Sign(RzGyro) = -1 。<br>一个简单的估算方法：<br>Sign(RzGyro) = Sign(RzEst(n-1))<br>在实际应用中，当心RzEst（n-1）趋近于0。这时候你可以跳过整个陀螺仪阶段并赋值：Rgyro=Rest（n-1）。Rz可以用作计算Axz和Ayz倾角的参考，当它趋近于0时，它可能会溢出并引发不好的后果。这时你会得到很大的浮点数据，并且tan()/atan()函数得到的结果会缺乏精度。</p>
+<p>现在我们回顾一下已经得到的结果，我们在算法中的第n步，并计算出了下面的值：<br>Racc – 加速度计读取的当前值<br>Rgyro –根据Rest(-1)和当前陀螺仪读取值所得<br>我们根据哪个值来更新Rest（n）呢？你可能已经猜到，两者都采用。我们会用一个加权平均值，得：<br>Rest(n) = (Racc * w1 + Rgyro * w2 ) / (w1 + w2)<br>分子分母同除以w1，公式可简化成：<br>Rest(n) = (Racc * w1/w1 + Rgyro * w2/w1 ) / (w1/w1 + w2/w1)<br>令w2=w1=wGyro，可得：<br>Rest(n) = (Racc + Rgyro * wGyro ) / (1 + wGyro)<br>在上面的公式中，wGyro表示我们对加速度计和陀螺仪的相信程度。这个值可以通过测试确定，根据经验值5-20之间会得到一个很好的结果。<br>此算法和卡尔曼滤波最主要的差别是它的权重是相对固定的，而卡尔曼滤波中的权重会随着加速度计读取的噪声而改变。卡尔曼滤波注重给你一个“最好”的理论结果，而此算法给你的是实际项目中“够用”的结果。你可以实现一个算法，它能根据测量的噪声而改变wGyro值，但对大部分应用来说固定的权重也能工作的很好。<br>现在得到最新的估算值还差一步：<br>RxEst(n) = (RxAcc + RxGyro * wGyro ) / (1 + wGyro)<br>RyEst(n) = (RyAcc + RyGyro * wGyro ) / (1 + wGyro)<br>RzEst(n) = (RzAcc + RzGyro * wGyro ) / (1 + wGyro)<br>现在，再次标准化矢量：<br>R = SQRT(RxEst(n) ^2 + RyEst(n)^2 + RzEst(n)^2 )<br>RxEst(n) = RxEst(n)/R<br>RyEst(n) = RyEst(n)/R<br>RzEst(n) = RzEst(n)/R<br>现在，可以再次进行下一轮循环了。<br><strong>注：</strong>关于此算法的具体实现和测试，请阅读这篇文章：<br><a target="_blank" rel="noopener" href="http://starlino.com/imu_kalman_arduino.html">http://starlino.com/imu_kalman_arduino.html</a></p>
+<p>加速度计和陀螺仪IMU融合的其他资源：<br><a target="_blank" rel="noopener" href="http://www.mikroquad.com/pub/Research/ComplementaryFilter/filter.pdf">http://www.mikroquad.com/pub/Res … ryFilter/filter.pdf</a></p>
+<p><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/1586658/combine-gyroscope-and-accelerometer-data">http://stackoverflow.com/questio … -accelerometer-data</a><br><a target="_blank" rel="noopener" href="http://www.dimensionengineering.com/accelerometers.htm">http://www.dimensionengineering.com/accelerometers.htm</a></p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.darkfox.work" rel="external nofollow noreferrer">DarkFox</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://www.darkfox.work/posts/611f9591/">https://www.darkfox.work/posts/611f9591/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY-NC 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="https://www.darkfox.work" target="_blank">DarkFox</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E7%94%B5%E5%AD%90/">
+                                    <span class="chip bg-color">电子</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">要请我喝一杯可乐么?</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .twikoo-card {
+        margin: 1.5rem auto;
+    }
+
+    .twikoo-card .card-content {
+        padding: 20px;
+    }
+
+    #tcomments textarea {
+        box-sizing: border-box;
+        background: url("/") 100% 100% no-repeat;
+    }
+
+    #tcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #tcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #tcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #tcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #tcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #tcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #tcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #tcomments ul li {
+        list-style-type: disc;
+    }
+
+    #tcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #tcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #tcomments table td {
+        min-width: 80px;
+    }
+
+    #tcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #tcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #tcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #tcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #tcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #tcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #tcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #tcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #tcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #tcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #tcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #tcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #tcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #tcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #tcomments [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #tcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #tcomments dfn {
+        font-style: italic;
+    }
+
+    #tcomments small {
+        font-size: 85%;
+    }
+
+    #tcomments cite {
+        font-style: normal;
+    }
+
+    #tcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #tcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #tcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #tcomments table td {
+        min-width: 80px;
+    }
+
+    #tcomments [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card twikoo-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div class="card-content" style="display: grid">
+        <div id="tcomments"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/twikoo/twikoo.all.min.js"></script>
+<script>
+    twikoo.init({
+        envId: 'darkfox-9gks3bvnd1da90ed',
+        el: '#tcomments',
+        region: '',
+        path: ''
+    }).then(function () {
+        var tkInputs = document.querySelector('#twikoo').getElementsByTagName('input');
+        for (var tkInputsIndex = 0; tkInputsIndex < tkInputs.length; tkInputsIndex++) {
+            if (tkInputs[tkInputsIndex]) {
+                tkInputs[tkInputsIndex].classList.add('browser-default');
+            }
+        }
+    });
+</script>
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/posts/undefined/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/medias/featureimages/21.jpg" class="responsive-img" alt="电机驱动模块-TB6612FNG">
+                        
+                        <span class="card-title">电机驱动模块-TB6612FNG</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            TB6612的用法
+双驱动，也就是可以驱动两个电机。
+STBY:接单片机的IO口，清零，电机全部停止。
+置1，通过AIN1 AIN2,BIN1,BIN2来控制正反转
+VM 接12V电源
+VCC 接5V电源
+GND 接地
+
+驱动1路
+PWMA
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-07-31
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%94%B5%E5%AD%90/" class="post-category">
+                                    电子
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%94%B5%E5%AD%90/">
+                        <span class="chip bg-color">电子</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/posts/962b2335/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/medias/featureimages/23.jpg" class="responsive-img" alt="陀螺仪--九轴">
+                        
+                        <span class="card-title">陀螺仪--九轴</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            前言
+传感器的调试过程，一般根据原厂提供demo代码，调试数据接口，将数据流打通即可，在VR中，当带上头显设备，运行应用时，出现漂移、延迟、不回归问题，往往束手无策，解决这些小问题，往往占用很多的时间，希望通过自己整理的知识，明确调试的方向
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-27
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%94%B5%E5%AD%90/" class="post-category">
+                                    电子
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%94%B5%E5%AD%90/">
+                        <span class="chip bg-color">电子</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + 'From: 冥狐的小站<br />'
+            + 'Author: DarkFox<br />'
+            + 'Link: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="7087987166"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.5'
+                   list-folded='false'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021-2023</span>
+            
+            <span id="year">2021</span>
+            <a href="/about" target="_blank">DarkFox</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">34k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2021";
+                    var startMonth = "11";
+                    var startDate = "18";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/godmid" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:494752893@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=494752893" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 494752893" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/materialize/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/aos/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/gh/godmid/godmid.github.io/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
